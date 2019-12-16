@@ -1,0 +1,18 @@
+{
+    "name": "Tmoe's Blog",
+    "short_name": "Blog",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "lightblue",
+    "theme_color": "aliceblue",
+    "description": "tome's personal space, for teachnology mostly.",
+    "icons": [{
+      "src": "images/app_icon/app_icon48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    }],
+    "related_applications": [{
+      "platform": "web",
+      "url": "https://cunzaizhimi.top"
+    }]
+  }

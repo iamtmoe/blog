@@ -1,0 +1,3 @@
+[submodule "docs/articles"]
+	path = docs/articles
+	url = git@github.com:iamtmoe/articles.git
