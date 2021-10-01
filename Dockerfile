@@ -10,7 +10,7 @@ RUN yarn
 
 COPY . .
 
-CMD yarn build
+RUN yarn build
 
 FROM nginx:latest
 
