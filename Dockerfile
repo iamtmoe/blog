@@ -10,6 +10,8 @@ RUN yarn
 
 COPY . .
 
+RUN git submodule update
+
 RUN yarn build
 
 FROM nginx:latest
