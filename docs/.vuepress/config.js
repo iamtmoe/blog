@@ -5,7 +5,7 @@ module.exports = {
     ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
     ['link', { rel: 'manifest', href: '/manifest.json' }],
     ['meta', { name:'baidu-site-verification', content:'41GlPEeYTk'}],
-    ['meta', { name:'keywords', content:'vuepress，技术博客，tmoe'}],
+    ['meta', { name:'keywords', content:'vuepress, blog, tmoe'}],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
     ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
@@ -14,6 +14,14 @@ module.exports = {
     ['meta', { name: 'msapplication-TileImage', content: '/images/app_icon/app_icon48.jpeg' }],
     ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
   ],
+  locales: {
+    '/': {
+      lang: 'en-US',
+    },
+    '/zh-CN/': {
+      lang: 'zh-CN',
+    }
+  },
   theme: '@vuepress/blog',
   themeConfig: {
       pwa: true,
@@ -48,7 +56,7 @@ module.exports = {
       directories: [
         {
           id: 'post',
-          dirname: 'articles/src',
+          dirname: 'articles',
           path: '/',
           pagination: {
             lengthPerPage: 4
