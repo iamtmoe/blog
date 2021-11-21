@@ -62,12 +62,9 @@ tags:
 
 ## 个人项目
 
-1. 共享书签
-    - `rails` `react` `vuepress`
+1. 简历网
+    - `next.js` `fastify` `docker`
     - <https://cunzaizhimi.top/>
-2. 简历网
-    - `apollo` `nodejs` `react` `prisma`
-    - <https://resume.cunzaizhimi.top/>
 
 ## ⾃我评价
 
