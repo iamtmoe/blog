@@ -69,7 +69,7 @@ module.exports = {
       comment: {
         service: 'vssue',
         owner: 'iamtmoe',
-        repo: 'articles',
+        repo: 'blog',
         clientId: 'd862fa61879084c09bb6',
         clientSecret: '5dccd872d7ecb35fb274cdf5b60f2eed2ed405a7',
         proxy: (url) => `https://cors-anywhere.azm.workers.dev/${url}`,
