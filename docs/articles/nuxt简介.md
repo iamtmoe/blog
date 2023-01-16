@@ -12,7 +12,7 @@ tags:
 
 在服务端生成html静态字符串，发送到客户端，再混合成可交互的app
 
-![SSR架构](../../assets/ssr-architect.png)
+![SSR架构](../assets/ssr-architect.png)
 
 ### why
 
@@ -794,6 +794,6 @@ mounted () {
 },
 ```
 
-![查看网页源代码](../../assets/nuxt-modern-generate.png)
+![查看网页源代码](../assets/nuxt-modern-generate.png)
 
 - type="module"的脚本给支持es6的浏览器执行，nomodule的脚本给不支持es6的浏览器执行

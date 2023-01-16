@@ -264,7 +264,7 @@ tags:
 
 ## 最终效果
 
-![myreact](../../assets/myreact.gif)
+![myreact](../assets/myreact.gif)
 
 ## 项目地址
 

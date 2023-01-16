@@ -64,7 +64,7 @@ jobs:
 
 这样往master分支推代码会触发两个job,分别是构建镜像推送dockerhub和请求webhook,secrets.DOCKER_USERNAME是在仓库settings -> secrets 里配置
 
-![github-action](../../assets/github-action.png)
+![github-action](../assets/github-action.png)
 
 ## webhook服务
 
@@ -145,7 +145,7 @@ sudo supervisorctl reload
 
 dockerhub免费只能用一个私有仓库，不够的话可以使用ACR创建镜像仓库，但是使用上面的github action acr 登录成功，但是push镜像总是报错访问被拒绝，本地推也是能成功的，网上也搜不到答案，就给acr-login仓库提了个issue：<https://github.com/aliyun/acr-login/issues/12>感受下蹩脚英文:joy:。后来发现可以直接设置代码变更触发acr的镜像构建，issue等了很久也没反应就关掉了。然后设置触发器，填上webhook url，问题解决:tada:
 
-![github-action](../../assets/acr.png)
+![github-action](../assets/acr.png)
 
 ## 参考链接
 

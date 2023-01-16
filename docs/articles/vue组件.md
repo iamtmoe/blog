@@ -8,7 +8,7 @@ tags:
 
 ## vue生命周期
 
-![vue生命周期图](../../assets/vue-lifecycle.png)
+![vue生命周期图](../assets/vue-lifecycle.png)
 
 1. 初始化event&lifecycle
 2. callhook('beforeCreate')

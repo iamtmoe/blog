@@ -1,11 +1,12 @@
 module.exports = {
-  title: 'TMOE\'S BLOG',
-  description: 'tmoe\'s blog',
+  title: '一何有尔的博客',
+  description: '一何有尔的博客',
+  base: '/blog/',
   head: [
     ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
     ['link', { rel: 'manifest', href: '/manifest.json' }],
     ['meta', { name:'baidu-site-verification', content:'41GlPEeYTk'}],
-    ['meta', { name:'keywords', content:'vuepress, blog, tmoe'}],
+    ['meta', { name:'keywords', content:'vuepress, blog, 一何有尔'}],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
     ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
@@ -48,7 +49,7 @@ module.exports = {
             link: 'https://policies.google.com/privacy?hl=en-US',
           },
           {
-            text: 'MIT Licensed | Copyright © tmoe',
+            text: 'MIT Licensed | Copyright © 一何有尔',
             link: '',
           }
         ],
@@ -64,7 +65,7 @@ module.exports = {
         },
       ],
       sitemap: {
-        hostname: 'https://blog.cunzaizhimi.top'
+        hostname: 'https://iamtmoe.github.io'
       },
       comment: {
         service: 'vssue',

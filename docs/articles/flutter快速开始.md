@@ -27,7 +27,7 @@ tags:
     > This installs the latest Android SDK, Android SDK Platform-Tools, and Android SDK Build-Tools, which are required by Flutter when developing for Android.
 5. 新建安卓模拟器
 
-    ![文档说明](../../assets/flutter-doc-about-android-monitor.png)
+    ![文档说明](../assets/flutter-doc-about-android-monitor.png)
 
     *注*：
         - AndroidStudio 右上角手机的图标就是 avd manager
@@ -172,4 +172,4 @@ class RandomWords extends StatefulWidget {
 
 最终效果：
 
-![flutter-demo](../../assets/flutter-demo.png)
+![flutter-demo](../assets/flutter-demo.png)
