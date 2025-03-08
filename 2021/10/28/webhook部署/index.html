@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>webhook部署 | 一何有尔的博客</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+    <link rel="manifest" href="/blog/manifest.json">
+    <link rel="apple-touch-icon" href="/blog/images/app_icon/app_icon48.jpeg">
+    <link rel="mask-icon" href="/blog/icons/safari-pinned-tab.svg" color="#3eaf7c">
+    <meta name="description" content="
+github action
+
+项目根目录新增.github/workflow/docker-image.yml文件，或者也可以在github仓库页面上点击actions生成
+
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+pull_request:
+branches: [ mast ...">
+    <meta name="baidu-site-verification" content="41GlPEeYTk">
+    <meta name="keywords" content="vuepress, blog, 一何有尔">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-TileImage" content="/images/app_icon/app_icon48.jpeg">
+    <meta name="msapplication-TileColor" content="#000000">
+    
+    <link rel="preload" href="/blog/assets/css/0.styles.db20579b.css" as="style"><link rel="preload" href="/blog/assets/js/app.c616dceb.js" as="script"><link rel="preload" href="/blog/assets/js/6.b5d332af.js" as="script"><link rel="preload" href="/blog/assets/js/3.749e8baa.js" as="script"><link rel="preload" href="/blog/assets/js/13.b618ec97.js" as="script"><link rel="preload" href="/blog/assets/js/8.050f5748.js" as="script"><link rel="prefetch" href="/blog/assets/js/10.aa1dac21.js"><link rel="prefetch" href="/blog/assets/js/11.70c977ba.js"><link rel="prefetch" href="/blog/assets/js/12.bca8c580.js"><link rel="prefetch" href="/blog/assets/js/14.80ae0e92.js"><link rel="prefetch" href="/blog/assets/js/15.1e8d5c02.js"><link rel="prefetch" href="/blog/assets/js/16.9fcef108.js"><link rel="prefetch" href="/blog/assets/js/17.60290ab1.js"><link rel="prefetch" href="/blog/assets/js/18.bd9b53f4.js"><link rel="prefetch" href="/blog/assets/js/19.bf170d35.js"><link rel="prefetch" href="/blog/assets/js/20.76d2073a.js"><link rel="prefetch" href="/blog/assets/js/21.84e35001.js"><link rel="prefetch" href="/blog/assets/js/22.9a77eca9.js"><link rel="prefetch" href="/blog/assets/js/23.eee85973.js"><link rel="prefetch" href="/blog/assets/js/24.af56bcfb.js"><link rel="prefetch" href="/blog/assets/js/25.b9c14c5d.js"><link rel="prefetch" href="/blog/assets/js/26.31632e5f.js"><link rel="prefetch" href="/blog/assets/js/27.b62c171d.js"><link rel="prefetch" href="/blog/assets/js/28.c6fdb267.js"><link rel="prefetch" href="/blog/assets/js/29.c3073e06.js"><link rel="prefetch" href="/blog/assets/js/30.8fd564e6.js"><link rel="prefetch" href="/blog/assets/js/31.2d770bc9.js"><link rel="prefetch" href="/blog/assets/js/32.a63a63d2.js"><link rel="prefetch" href="/blog/assets/js/33.8bc5dfef.js"><link rel="prefetch" href="/blog/assets/js/34.768a88f4.js"><link rel="prefetch" href="/blog/assets/js/35.07c0faed.js"><link rel="prefetch" href="/blog/assets/js/36.91bb844e.js"><link rel="prefetch" href="/blog/assets/js/4.c95f156b.js"><link rel="prefetch" href="/blog/assets/js/5.1b5f68e5.js"><link rel="prefetch" href="/blog/assets/js/7.833de25a.js"><link rel="prefetch" href="/blog/assets/js/9.5e1c757e.js"><link rel="prefetch" href="/blog/assets/js/vuejs-paginate.c4247c5c.js">
+    <link rel="stylesheet" href="/blog/assets/css/0.styles.db20579b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div id="vuepress-theme-blog__global-layout"><section id="header-wrapper"><header id="header"><div class="header-wrapper"><div class="title"><a href="/blog/" class="nav-link home-link">一何有尔的博客 </a></div> <div class="header-right-wrap"><ul class="nav"><li class="nav-item"><a href="/blog/" class="nav-link">Home</a></li><li class="nav-item"><a href="/blog/tag/" class="nav-link">Tags</a></li></ul> <div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></div></header></section> <div id="mobile-header"><div class="mobile-header-bar"><div class="mobile-header-title"><a href="/blog/" class="nav-link mobile-home-link">一何有尔的博客 </a> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div> <div class="mobile-menu-wrapper"><hr class="menu-divider"> <ul class="mobile-nav"><li class="mobile-nav-item"><a href="/blog/" class="nav-link">Home</a></li><li class="mobile-nav-item"><a href="/blog/tag/" class="nav-link">Tags</a></li> <li class="mobile-nav-item"><!----></li></ul></div></div></div> <div class="content-wrapper"><div id="vuepress-theme-blog__post-layout"><article itemscope="itemscope" itemtype="https://schema.org/BlogPosting" class="vuepress-blog-theme-content"><header><h1 itemprop="name headline" class="post-title">
+        
+      </h1> <div class="post-meta"><!----> <div class="post-meta-date"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> <time pubdate itemprop="datePublished" datetime="2021-10-28T00:00:00.000Z">
+      Thu Oct 28 2021
+    </time></div> <ul itemprop="keywords" class="post-meta-tags"><li class="post-tag" data-v-42ccfcd5><a href="/blog/tag/webhook" data-v-42ccfcd5><span data-v-42ccfcd5>webhook</span></a></li><li class="post-tag" data-v-42ccfcd5><a href="/blog/tag/deploy" data-v-42ccfcd5><span data-v-42ccfcd5>deploy</span></a></li></ul></div></header> <div itemprop="articleBody" class="content__default"><h1 id="webhook部署"><a href="#webhook部署" class="header-anchor">#</a> webhook部署</h1> <h2 id="github-action"><a href="#github-action" class="header-anchor">#</a> github action</h2> <p>项目根目录新增.github/workflow/docker-image.yml文件，或者也可以在github仓库页面上点击actions生成</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">name</span><span class="token punctuation">:</span> Docker Image CI
+
+<span class="token key atrule">on</span><span class="token punctuation">:</span>
+  <span class="token key atrule">push</span><span class="token punctuation">:</span>
+    <span class="token key atrule">branches</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> master <span class="token punctuation">]</span>
+  <span class="token comment"># pull_request:</span>
+  <span class="token comment">#   branches: [ master ]</span>
+
+<span class="token key atrule">jobs</span><span class="token punctuation">:</span>
+
+  <span class="token key atrule">push_to_registry</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> Push Docker image to Docker Hub
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Check out the repo
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v2
+      
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Log in to Docker Hub
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> docker/login<span class="token punctuation">-</span>action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">username</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.DOCKER_USERNAME <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token key atrule">password</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.DOCKER_PASSWORD <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Extract metadata (tags<span class="token punctuation">,</span> labels) for Docker
+        <span class="token key atrule">id</span><span class="token punctuation">:</span> meta
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> docker/metadata<span class="token punctuation">-</span>action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">images</span><span class="token punctuation">:</span> iamtmoe/server
+          <span class="token key atrule">tags</span><span class="token punctuation">:</span> latest
+      
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Build and push Docker image
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> docker/build<span class="token punctuation">-</span>push<span class="token punctuation">-</span>action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">context</span><span class="token punctuation">:</span> .
+          <span class="token key atrule">push</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+          <span class="token key atrule">tags</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> steps.meta.outputs.tags <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token key atrule">labels</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> steps.meta.outputs.labels <span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+  <span class="token key atrule">redeploy</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> Redeploy webhook call
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest
+    <span class="token key atrule">needs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>push_to_registry<span class="token punctuation">]</span>
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Deploy docker container webhook
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> joelwmale/webhook<span class="token punctuation">-</span>action@master
+        <span class="token key atrule">env</span><span class="token punctuation">:</span>
+          <span class="token key atrule">WEBHOOK_URL</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.DEPLOY_WEBHOOK_URL  <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token comment"># data: &quot;{ 'myField': 'myFieldValue'}&quot;</span>
+</code></pre></div><p>这样往master分支推代码会触发两个job,分别是构建镜像推送dockerhub和请求webhook,secrets.DOCKER_USERNAME是在仓库settings -&gt; secrets 里配置</p> <p><img src="/blog/assets/img/github-action.134703be.png" alt="github-action"></p> <h2 id="webhook服务"><a href="#webhook服务" class="header-anchor">#</a> webhook服务</h2> <p>当然可以自己起个服务处理http请求，这里用开源的go写的一个包</p> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token function">apt</span> <span class="token function">install</span> webhook
+<span class="token function">mkdir</span> hooks
+<span class="token builtin class-name">cd</span> hooks
+<span class="token function">touch</span> supervisor.log
+<span class="token function">vim</span> hooks.json
+</code></pre></div><div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">[</span>
+  <span class="token punctuation">{</span>
+    <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;server&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;execute-command&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/home/tmoe/hooks/deploy/server.sh&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;command-working-directory&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/home/tmoe/hooks/deploy&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;response-message&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Redeploying server.&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;trigger-rule&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token comment">// 规避非法请求</span>
+      <span class="token property">&quot;match&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;value&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;value&quot;</span><span class="token operator">:</span> <span class="token string">&quot;secret-value&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;parameter&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">&quot;source&quot;</span><span class="token operator">:</span> <span class="token string">&quot;url&quot;</span><span class="token punctuation">,</span>
+          <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;secret&quot;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">]</span>
+</code></pre></div><div class="language-sh extra-class"><pre class="language-sh"><code><span class="token function">mkdir</span> deploy
+<span class="token function">vim</span> deploy/server.sh
+</code></pre></div><div class="language-sh extra-class"><pre class="language-sh"><code><span class="token shebang important">#!/bin/bash</span>
+<span class="token function">sudo</span> docker pull iamtmoe/server:latest
+<span class="token function">sudo</span> docker stop server
+<span class="token function">sudo</span> docker system prune -f
+<span class="token function">sudo</span> docker run -d --name<span class="token operator">=</span>server iamtmoe/server:latest
+</code></pre></div><p><code>webhook -hooks /home/tmoe/hooks/hooks.json -port 9091 -verbose</code></p> <h2 id="后台启动"><a href="#后台启动" class="header-anchor">#</a> 后台启动</h2> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> supervisor
+<span class="token function">sudo</span> <span class="token function">vim</span> /etc/supervisor/conf.d/webhooks.conf
+</code></pre></div><div class="language-conf extra-class"><pre class="language-text"><code>[program:webhooks]
+command=bash -c &quot;webhook -hooks /home/tmoe/hooks/hooks.json -port 9090 -verbose&quot;
+redirect_stderr=true
+autostart=true
+autorestart=true
+user=tmoe
+numprocs=1
+process_name=%(program_name)s_%(process_num)s
+stdout_logfile=/home/tmoe/hooks/supervisor.log
+environment=HOME=&quot;/home/tmoe&quot;,USER=&quot;tmoe&quot;
+</code></pre></div><div class="language-sh extra-class"><pre class="language-sh"><code><span class="token function">sudo</span> supervisorctl reread
+<span class="token function">sudo</span> supervisorctl update
+<span class="token function">sudo</span> supervisorctl start webhooks:*
+<span class="token function">sudo</span> supervisorctl reload
+</code></pre></div><h2 id="acr-阿里云容器镜像"><a href="#acr-阿里云容器镜像" class="header-anchor">#</a> acr，阿里云容器镜像</h2> <p>dockerhub免费只能用一个私有仓库，不够的话可以使用ACR创建镜像仓库，但是使用上面的github action acr 登录成功，但是push镜像总是报错访问被拒绝，本地推也是能成功的，网上也搜不到答案，就给acr-login仓库提了个issue：<a href="https://github.com/aliyun/acr-login/issues/12" target="_blank" rel="noopener noreferrer">https://github.com/aliyun/acr-login/issues/12<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>感受下蹩脚英文😂。后来发现可以直接设置代码变更触发acr的镜像构建，issue等了很久也没反应就关掉了。然后设置触发器，填上webhook url，问题解决🎉</p> <p><img src="/blog/assets/img/acr.9eb62de8.png" alt="github-action"></p> <h2 id="参考链接"><a href="#参考链接" class="header-anchor">#</a> 参考链接</h2> <ul><li><a href="https://github.com/marketplace/actions/alibaba-cloud-container-registry-acr-login" target="_blank" rel="noopener noreferrer">https://github.com/marketplace/actions/alibaba-cloud-container-registry-acr-login<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://willbrowning.me/setting-up-automatic-deployment-and-builds-using-webhooks/" target="_blank" rel="noopener noreferrer">https://willbrowning.me/setting-up-automatic-deployment-and-builds-using-webhooks/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div> <footer><!----> <hr> <!----></footer></article> <div class="sticker vuepress-toc"><div class="vuepress-toc-item vuepress-toc-h2 active"><a href="#github-action" title="github action">github action</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#webhook服务" title="webhook服务">webhook服务</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#后台启动" title="后台启动">后台启动</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#acr-阿里云容器镜像" title="acr，阿里云容器镜像">acr，阿里云容器镜像</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#参考链接" title="参考链接">参考链接</a></div></div></div></div> <footer class="footer" data-v-3d9deeb8><div class="footer-left-wrap" data-v-3d9deeb8><ul class="contact" data-v-3d9deeb8><li class="contact-item" data-v-3d9deeb8><a href="https://github.com/iamtmoe" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github" data-v-3d9deeb8><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" data-v-3d9deeb8></path></svg>
+          
+        </a></li></ul></div> <div class="footer-right-wrap" data-v-3d9deeb8><ul class="copyright" data-v-3d9deeb8><li class="copyright-item" data-v-3d9deeb8><a href="https://policies.google.com/privacy?hl=en-US" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8>Privacy Policy</a></li><li class="copyright-item" data-v-3d9deeb8>MIT Licensed | Copyright © 一何有尔</li></ul></div></footer></div><div class="global-ui"><!----></div></div>
+    <script src="/blog/assets/js/app.c616dceb.js" defer></script><script src="/blog/assets/js/6.b5d332af.js" defer></script><script src="/blog/assets/js/3.749e8baa.js" defer></script><script src="/blog/assets/js/13.b618ec97.js" defer></script><script src="/blog/assets/js/8.050f5748.js" defer></script>
+  </body>
+</html>

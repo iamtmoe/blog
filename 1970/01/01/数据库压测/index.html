@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>数据库压测 | 一何有尔的博客</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+    <link rel="manifest" href="/blog/manifest.json">
+    <link rel="apple-touch-icon" href="/blog/images/app_icon/app_icon48.jpeg">
+    <link rel="mask-icon" href="/blog/icons/safari-pinned-tab.svg" color="#3eaf7c">
+    <meta name="description" content="
+背景
+
+线上的几个group.count接口很慢，测试环境却不慢，怀疑是并发负载的问题，于是想自己搞一波压测。
+
+select count(*) from pgstatactivity;
+
+生产库连接数450左右，测试库180左右
+
+加条件 t1.id > 730000 保证测试库和生产库group的行数相同
+
+SELECT COUNT(*) AS count_ ...">
+    <meta name="baidu-site-verification" content="41GlPEeYTk">
+    <meta name="keywords" content="vuepress, blog, 一何有尔">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-TileImage" content="/images/app_icon/app_icon48.jpeg">
+    <meta name="msapplication-TileColor" content="#000000">
+    
+    <link rel="preload" href="/blog/assets/css/0.styles.db20579b.css" as="style"><link rel="preload" href="/blog/assets/js/app.c616dceb.js" as="script"><link rel="preload" href="/blog/assets/js/6.b5d332af.js" as="script"><link rel="preload" href="/blog/assets/js/3.749e8baa.js" as="script"><link rel="preload" href="/blog/assets/js/33.8bc5dfef.js" as="script"><link rel="preload" href="/blog/assets/js/8.050f5748.js" as="script"><link rel="prefetch" href="/blog/assets/js/10.aa1dac21.js"><link rel="prefetch" href="/blog/assets/js/11.70c977ba.js"><link rel="prefetch" href="/blog/assets/js/12.bca8c580.js"><link rel="prefetch" href="/blog/assets/js/13.b618ec97.js"><link rel="prefetch" href="/blog/assets/js/14.80ae0e92.js"><link rel="prefetch" href="/blog/assets/js/15.1e8d5c02.js"><link rel="prefetch" href="/blog/assets/js/16.9fcef108.js"><link rel="prefetch" href="/blog/assets/js/17.60290ab1.js"><link rel="prefetch" href="/blog/assets/js/18.bd9b53f4.js"><link rel="prefetch" href="/blog/assets/js/19.bf170d35.js"><link rel="prefetch" href="/blog/assets/js/20.76d2073a.js"><link rel="prefetch" href="/blog/assets/js/21.84e35001.js"><link rel="prefetch" href="/blog/assets/js/22.9a77eca9.js"><link rel="prefetch" href="/blog/assets/js/23.eee85973.js"><link rel="prefetch" href="/blog/assets/js/24.af56bcfb.js"><link rel="prefetch" href="/blog/assets/js/25.b9c14c5d.js"><link rel="prefetch" href="/blog/assets/js/26.31632e5f.js"><link rel="prefetch" href="/blog/assets/js/27.b62c171d.js"><link rel="prefetch" href="/blog/assets/js/28.c6fdb267.js"><link rel="prefetch" href="/blog/assets/js/29.c3073e06.js"><link rel="prefetch" href="/blog/assets/js/30.8fd564e6.js"><link rel="prefetch" href="/blog/assets/js/31.2d770bc9.js"><link rel="prefetch" href="/blog/assets/js/32.a63a63d2.js"><link rel="prefetch" href="/blog/assets/js/34.768a88f4.js"><link rel="prefetch" href="/blog/assets/js/35.07c0faed.js"><link rel="prefetch" href="/blog/assets/js/36.91bb844e.js"><link rel="prefetch" href="/blog/assets/js/4.c95f156b.js"><link rel="prefetch" href="/blog/assets/js/5.1b5f68e5.js"><link rel="prefetch" href="/blog/assets/js/7.833de25a.js"><link rel="prefetch" href="/blog/assets/js/9.5e1c757e.js"><link rel="prefetch" href="/blog/assets/js/vuejs-paginate.c4247c5c.js">
+    <link rel="stylesheet" href="/blog/assets/css/0.styles.db20579b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div id="vuepress-theme-blog__global-layout"><section id="header-wrapper"><header id="header"><div class="header-wrapper"><div class="title"><a href="/blog/" class="nav-link home-link">一何有尔的博客 </a></div> <div class="header-right-wrap"><ul class="nav"><li class="nav-item"><a href="/blog/" class="nav-link">Home</a></li><li class="nav-item"><a href="/blog/tag/" class="nav-link">Tags</a></li></ul> <div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></div></header></section> <div id="mobile-header"><div class="mobile-header-bar"><div class="mobile-header-title"><a href="/blog/" class="nav-link mobile-home-link">一何有尔的博客 </a> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div> <div class="mobile-menu-wrapper"><hr class="menu-divider"> <ul class="mobile-nav"><li class="mobile-nav-item"><a href="/blog/" class="nav-link">Home</a></li><li class="mobile-nav-item"><a href="/blog/tag/" class="nav-link">Tags</a></li> <li class="mobile-nav-item"><!----></li></ul></div></div></div> <div class="content-wrapper"><div id="vuepress-theme-blog__post-layout"><article itemscope="itemscope" itemtype="https://schema.org/BlogPosting" class="vuepress-blog-theme-content"><header><h1 itemprop="name headline" class="post-title">
+        
+      </h1> <div class="post-meta"><!----> <div class="post-meta-date"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> <time pubdate itemprop="datePublished" datetime="1970-01-01T00:00:00.000Z">
+      Thu Jan 01 1970
+    </time></div> <ul itemprop="keywords" class="post-meta-tags"><li class="post-tag" data-v-42ccfcd5><a href="/blog/tag/postgres" data-v-42ccfcd5><span data-v-42ccfcd5>postgres</span></a></li></ul></div></header> <div itemprop="articleBody" class="content__default"><h1 id="数据库压测"><a href="#数据库压测" class="header-anchor">#</a> 数据库压测</h1> <h2 id="背景"><a href="#背景" class="header-anchor">#</a> 背景</h2> <p>线上的几个group.count接口很慢，测试环境却不慢，怀疑是并发负载的问题，于是想自己搞一波压测。</p> <p><code>select count(*) from pg_stat_activity;</code></p> <p>生产库连接数450左右，测试库180左右</p> <p>加条件 <code>t1.id &gt; 730000</code> 保证测试库和生产库group的行数相同</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">SELECT</span> <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> count_all<span class="token punctuation">,</span> <span class="token string">&quot;t1&quot;</span><span class="token punctuation">.</span><span class="token string">&quot;field1&quot;</span> <span class="token keyword">AS</span> t1_field1 <span class="token keyword">FROM</span> <span class="token string">&quot;t1&quot;</span> <span class="token keyword">WHERE</span> t1<span class="token punctuation">.</span>id <span class="token operator">&gt;</span> <span class="token number">730000</span> <span class="token operator">and</span> <span class="token keyword">GROUP</span> <span class="token keyword">BY</span> <span class="token string">&quot;t1&quot;</span><span class="token punctuation">.</span><span class="token string">&quot;field1&quot;</span>
+</code></pre></div><p>测试库用时50ms，生产库用时5s</p> <h2 id="压测"><a href="#压测" class="header-anchor">#</a> 压测</h2> <p>第一个想法是用puppeteer启很多标签页，每个标签页访问页面并定时刷新页面</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> puppeteer <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'puppeteer'</span><span class="token punctuation">)</span>
+<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> browser <span class="token operator">=</span> <span class="token keyword">await</span> puppeteer<span class="token punctuation">.</span><span class="token function">launch</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        headless<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        slowMo<span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">let</span> count <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>count <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> page <span class="token operator">=</span> <span class="token keyword">await</span> browser<span class="token punctuation">.</span><span class="token function">newPage</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token keyword">await</span> page<span class="token punctuation">.</span><span class="token function">setCookie</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+          name<span class="token operator">:</span> <span class="token string">'token'</span><span class="token punctuation">,</span>
+          value<span class="token operator">:</span> <span class="token string">'value'</span><span class="token punctuation">,</span>
+          domain<span class="token operator">:</span> <span class="token string">'domain'</span><span class="token punctuation">,</span>
+          path<span class="token operator">:</span> <span class="token string">'/'</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token keyword">await</span> page<span class="token punctuation">.</span><span class="token function">goto</span><span class="token punctuation">(</span><span class="token string">'page_url'</span><span class="token punctuation">)</span>
+      <span class="token function">setInterval</span><span class="token punctuation">(</span>page<span class="token punctuation">.</span><span class="token function">reload</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+      count <span class="token operator">=</span> count <span class="token operator">+</span> <span class="token number">1</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> browser
+<span class="token punctuation">}</span>
+<span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre></div><p>事实证明想法很天真，还没等tab全部加载出来电脑就高温预警了[笑cry]</p> <p>然后尝试请求接口</p> <div class="language-rb extra-class"><pre class="language-rb"><code>task mock_request<span class="token punctuation">:</span> <span class="token symbol">:environment</span> <span class="token keyword">do</span>
+  <span class="token constant">CONN_COUNT</span> <span class="token operator">=</span> <span class="token number">300</span>
+  <span class="token constant">REQUEST_TIME</span> <span class="token operator">=</span> <span class="token number">10.</span>minutes
+  now <span class="token operator">=</span> <span class="token builtin">Time</span><span class="token punctuation">.</span>current
+  ts <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token constant">CONN_COUNT</span><span class="token punctuation">.</span>times <span class="token keyword">do</span> <span class="token operator">|</span>n<span class="token operator">|</span>
+    t <span class="token operator">=</span> <span class="token builtin">Thread</span><span class="token punctuation">.</span><span class="token keyword">new</span> <span class="token keyword">do</span>
+      count <span class="token operator">=</span> <span class="token number">0</span>
+      <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token builtin">Time</span><span class="token punctuation">.</span>current <span class="token operator">&lt;</span> now <span class="token operator">+</span> <span class="token constant">REQUEST_TIME</span><span class="token punctuation">)</span>
+        count <span class="token operator">+</span><span class="token operator">=</span> <span class="token number">1</span>
+        <span class="token constant">Faraday</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">&quot;interface_url&quot;</span><span class="token punctuation">)</span>
+        <span class="token comment"># T1.connection.execute(&quot;select count(*) as count_all, field1 from t1 group by t1.field1;&quot;)</span>
+        puts <span class="token string">&quot;<span class="token interpolation"><span class="token delimiter tag">#{</span>n<span class="token delimiter tag">}</span></span>-<span class="token interpolation"><span class="token delimiter tag">#{</span>count<span class="token delimiter tag">}</span></span>&quot;</span>
+      <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+    ts <span class="token operator">&lt;</span><span class="token operator">&lt;</span> t
+  <span class="token keyword">end</span>
+  ts<span class="token punctuation">.</span><span class="token keyword">each</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token symbol">:join</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+</code></pre></div><p>发现控制台输出很慢而且测试库连接数完全并没变化，线程不够多？把<code>CONN_COUNT</code>改成3000, 果然输出很快了，但是很快报错了</p> <p><code>(Can't assign requested address - connect(2) for &quot;domain&quot; port 80) (Errno::EADDRNOTAVAIL)</code></p> <p>而且测试库连接数依旧没变化</p> <p>于是改成</p> <div class="language-rb extra-class"><pre class="language-rb"><code><span class="token comment"># Faraday.get(&quot;interface_url&quot;)</span>
+<span class="token constant">T1</span><span class="token punctuation">.</span>connection<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token string">&quot;select count(*) as count_all, field1 from t1 group by t1.field1;&quot;</span><span class="token punctuation">)</span>
+</code></pre></div><p>连接数终于上去了，注意database.yml也要修改成<code>pool: 300</code>，这是rails层面限制的最大连接数</p> <p>然后测试此时测试库的开篇那条语句的执行速度，和生产库是一致的，说明的确是并发负载问题</p></div> <footer><!----> <hr> <!----></footer></article> <div class="sticker vuepress-toc"><div class="vuepress-toc-item vuepress-toc-h2 active"><a href="#背景" title="背景">背景</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#压测" title="压测">压测</a></div></div></div></div> <footer class="footer" data-v-3d9deeb8><div class="footer-left-wrap" data-v-3d9deeb8><ul class="contact" data-v-3d9deeb8><li class="contact-item" data-v-3d9deeb8><a href="https://github.com/iamtmoe" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github" data-v-3d9deeb8><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" data-v-3d9deeb8></path></svg>
+          
+        </a></li></ul></div> <div class="footer-right-wrap" data-v-3d9deeb8><ul class="copyright" data-v-3d9deeb8><li class="copyright-item" data-v-3d9deeb8><a href="https://policies.google.com/privacy?hl=en-US" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8>Privacy Policy</a></li><li class="copyright-item" data-v-3d9deeb8>MIT Licensed | Copyright © 一何有尔</li></ul></div></footer></div><div class="global-ui"><!----></div></div>
+    <script src="/blog/assets/js/app.c616dceb.js" defer></script><script src="/blog/assets/js/6.b5d332af.js" defer></script><script src="/blog/assets/js/3.749e8baa.js" defer></script><script src="/blog/assets/js/33.8bc5dfef.js" defer></script><script src="/blog/assets/js/8.050f5748.js" defer></script>
+  </body>
+</html>

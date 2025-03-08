@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>来，学scala | 一何有尔的博客</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+    <link rel="manifest" href="/blog/manifest.json">
+    <link rel="apple-touch-icon" href="/blog/images/app_icon/app_icon48.jpeg">
+    <link rel="mask-icon" href="/blog/icons/safari-pinned-tab.svg" color="#3eaf7c">
+    <meta name="description" content="
+
+应工作需要，学习一波scala
+
+// hello.scala
+object Hello {
+  def main(args: Array[String]): Unit = {
+    val list: List[Any] = List(
+      'c',
+      "string",
+      666,
+      true,
+      () => "anony ...">
+    <meta name="baidu-site-verification" content="41GlPEeYTk">
+    <meta name="keywords" content="vuepress, blog, 一何有尔">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-TileImage" content="/images/app_icon/app_icon48.jpeg">
+    <meta name="msapplication-TileColor" content="#000000">
+    
+    <link rel="preload" href="/blog/assets/css/0.styles.db20579b.css" as="style"><link rel="preload" href="/blog/assets/js/app.c616dceb.js" as="script"><link rel="preload" href="/blog/assets/js/6.b5d332af.js" as="script"><link rel="preload" href="/blog/assets/js/3.749e8baa.js" as="script"><link rel="preload" href="/blog/assets/js/34.768a88f4.js" as="script"><link rel="preload" href="/blog/assets/js/8.050f5748.js" as="script"><link rel="prefetch" href="/blog/assets/js/10.aa1dac21.js"><link rel="prefetch" href="/blog/assets/js/11.70c977ba.js"><link rel="prefetch" href="/blog/assets/js/12.bca8c580.js"><link rel="prefetch" href="/blog/assets/js/13.b618ec97.js"><link rel="prefetch" href="/blog/assets/js/14.80ae0e92.js"><link rel="prefetch" href="/blog/assets/js/15.1e8d5c02.js"><link rel="prefetch" href="/blog/assets/js/16.9fcef108.js"><link rel="prefetch" href="/blog/assets/js/17.60290ab1.js"><link rel="prefetch" href="/blog/assets/js/18.bd9b53f4.js"><link rel="prefetch" href="/blog/assets/js/19.bf170d35.js"><link rel="prefetch" href="/blog/assets/js/20.76d2073a.js"><link rel="prefetch" href="/blog/assets/js/21.84e35001.js"><link rel="prefetch" href="/blog/assets/js/22.9a77eca9.js"><link rel="prefetch" href="/blog/assets/js/23.eee85973.js"><link rel="prefetch" href="/blog/assets/js/24.af56bcfb.js"><link rel="prefetch" href="/blog/assets/js/25.b9c14c5d.js"><link rel="prefetch" href="/blog/assets/js/26.31632e5f.js"><link rel="prefetch" href="/blog/assets/js/27.b62c171d.js"><link rel="prefetch" href="/blog/assets/js/28.c6fdb267.js"><link rel="prefetch" href="/blog/assets/js/29.c3073e06.js"><link rel="prefetch" href="/blog/assets/js/30.8fd564e6.js"><link rel="prefetch" href="/blog/assets/js/31.2d770bc9.js"><link rel="prefetch" href="/blog/assets/js/32.a63a63d2.js"><link rel="prefetch" href="/blog/assets/js/33.8bc5dfef.js"><link rel="prefetch" href="/blog/assets/js/35.07c0faed.js"><link rel="prefetch" href="/blog/assets/js/36.91bb844e.js"><link rel="prefetch" href="/blog/assets/js/4.c95f156b.js"><link rel="prefetch" href="/blog/assets/js/5.1b5f68e5.js"><link rel="prefetch" href="/blog/assets/js/7.833de25a.js"><link rel="prefetch" href="/blog/assets/js/9.5e1c757e.js"><link rel="prefetch" href="/blog/assets/js/vuejs-paginate.c4247c5c.js">
+    <link rel="stylesheet" href="/blog/assets/css/0.styles.db20579b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div id="vuepress-theme-blog__global-layout"><section id="header-wrapper"><header id="header"><div class="header-wrapper"><div class="title"><a href="/blog/" class="nav-link home-link">一何有尔的博客 </a></div> <div class="header-right-wrap"><ul class="nav"><li class="nav-item"><a href="/blog/" class="nav-link">Home</a></li><li class="nav-item"><a href="/blog/tag/" class="nav-link">Tags</a></li></ul> <div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></div></header></section> <div id="mobile-header"><div class="mobile-header-bar"><div class="mobile-header-title"><a href="/blog/" class="nav-link mobile-home-link">一何有尔的博客 </a> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div> <div class="mobile-menu-wrapper"><hr class="menu-divider"> <ul class="mobile-nav"><li class="mobile-nav-item"><a href="/blog/" class="nav-link">Home</a></li><li class="mobile-nav-item"><a href="/blog/tag/" class="nav-link">Tags</a></li> <li class="mobile-nav-item"><!----></li></ul></div></div></div> <div class="content-wrapper"><div id="vuepress-theme-blog__post-layout"><article itemscope="itemscope" itemtype="https://schema.org/BlogPosting" class="vuepress-blog-theme-content"><header><h1 itemprop="name headline" class="post-title">
+        
+      </h1> <div class="post-meta"><!----> <div class="post-meta-date"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> <time pubdate itemprop="datePublished" datetime="1970-01-01T00:00:00.000Z">
+      Thu Jan 01 1970
+    </time></div> <ul itemprop="keywords" class="post-meta-tags"><li class="post-tag" data-v-42ccfcd5><a href="/blog/tag/scala" data-v-42ccfcd5><span data-v-42ccfcd5>scala</span></a></li></ul></div></header> <div itemprop="articleBody" class="content__default"><h1 id="来-学scala"><a href="#来-学scala" class="header-anchor">#</a> 来，学scala</h1> <p>应工作需要，学习一波scala</p> <div class="language-scala extra-class"><pre class="language-scala"><code><span class="token comment">// hello.scala</span>
+<span class="token keyword">object</span> Hello <span class="token punctuation">{</span>
+  <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token keyword">val</span> list<span class="token operator">:</span> List<span class="token punctuation">[</span><span class="token builtin">Any</span><span class="token punctuation">]</span> <span class="token operator">=</span> List<span class="token punctuation">(</span>
+      <span class="token string">'c'</span><span class="token punctuation">,</span>
+      <span class="token string">&quot;string&quot;</span><span class="token punctuation">,</span>
+      <span class="token number">666</span><span class="token punctuation">,</span>
+      <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">=&gt;</span> <span class="token string">&quot;anonymous function&quot;</span>
+    <span class="token punctuation">)</span>
+    list<span class="token punctuation">.</span>foreach<span class="token punctuation">(</span>el <span class="token keyword">=&gt;</span> println<span class="token punctuation">(</span>el<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-sh extra-class"><pre class="language-sh"><code>scalac tmp/data/hello.scala -d ./tmp/data
+scala -classpath tmp/data Hello
+</code></pre></div><p>-d 指定输出的class文件的目录</p> <p>-classpath 指定寻找class文件的路径</p> <p>输出：<br>
+c<br>
+string<br>
+666<br>
+true<br>
+Hello$$$Lambda$113/0x0000000800cb6840@4145bad</p> <div class="language-scala extra-class"><pre class="language-scala"><code><span class="token keyword">object</span> Hello <span class="token punctuation">{</span>
+  <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> p <span class="token operator">=</span> <span class="token keyword">new</span> Point
+    println<span class="token punctuation">(</span>p<span class="token punctuation">.</span>x<span class="token punctuation">,</span> p<span class="token punctuation">.</span>y<span class="token punctuation">)</span>
+    p <span class="token operator">=</span> <span class="token keyword">new</span> Point<span class="token punctuation">(</span>y <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">1</span>
+    println<span class="token punctuation">(</span>p<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> Point<span class="token punctuation">(</span><span class="token keyword">var</span> x<span class="token operator">:</span> <span class="token builtin">Int</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token keyword">var</span> y<span class="token operator">:</span> <span class="token builtin">Int</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">override</span> <span class="token keyword">def</span> toString<span class="token operator">:</span> <span class="token builtin">String</span> <span class="token operator">=</span> s<span class="token string">&quot;Point($x, $y)&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>输出：<br>
+(0,0)<br>
+Point(1, 5)</p> <div class="language-scala extra-class"><pre class="language-scala"><code><span class="token keyword">import</span> <span class="token namespace">scala<span class="token punctuation">.</span>collection<span class="token punctuation">.</span>mutable<span class="token punctuation">.</span></span>ArrayBuffer
+
+<span class="token keyword">object</span> Hello <span class="token punctuation">{</span>
+  <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token keyword">val</span> zoo <span class="token operator">=</span> <span class="token keyword">new</span> Zoo<span class="token punctuation">(</span>to <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    println<span class="token punctuation">(</span>zoo<span class="token punctuation">.</span>next<span class="token punctuation">)</span>
+    println<span class="token punctuation">(</span>zoo<span class="token punctuation">.</span>next<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">trait</span> Iterator<span class="token punctuation">[</span>A<span class="token punctuation">]</span> <span class="token punctuation">{</span>
+  <span class="token keyword">def</span> next<span class="token operator">:</span> A
+<span class="token punctuation">}</span>
+
+<span class="token keyword">trait</span> Pet <span class="token punctuation">{</span>
+  <span class="token keyword">val</span> name<span class="token operator">:</span> <span class="token builtin">String</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> Dog<span class="token punctuation">(</span><span class="token keyword">val</span> name<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token keyword">extends</span> Pet <span class="token punctuation">{</span>
+  <span class="token keyword">override</span> <span class="token keyword">def</span> toString<span class="token operator">:</span> <span class="token builtin">String</span> <span class="token operator">=</span> s<span class="token string">&quot;Dog: $name&quot;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> Zoo<span class="token punctuation">(</span>to<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span> <span class="token keyword">extends</span> Iterator<span class="token punctuation">[</span>Pet<span class="token punctuation">]</span> <span class="token punctuation">{</span>
+  <span class="token keyword">private</span> <span class="token keyword">var</span> current <span class="token operator">=</span> <span class="token number">0</span>
+  <span class="token keyword">private</span> <span class="token keyword">val</span> members <span class="token operator">=</span> ArrayBuffer<span class="token punctuation">(</span><span class="token keyword">new</span> Dog<span class="token punctuation">(</span><span class="token string">&quot;honey&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token keyword">override</span> <span class="token keyword">def</span> next<span class="token operator">:</span> Pet <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token keyword">val</span> t <span class="token operator">=</span> current
+    current <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">&lt;</span> to<span class="token punctuation">)</span> members<span class="token punctuation">(</span>t<span class="token punctuation">)</span> <span class="token keyword">else</span> <span class="token keyword">new</span> Dog<span class="token punctuation">(</span><span class="token string">&quot;out of bound&quot;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>输出：<br>
+Dog: honey<br>
+Dog: out of bound</p> <div class="language-scala extra-class"><pre class="language-scala"><code><span class="token keyword">object</span> Hello <span class="token punctuation">{</span>
+  <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token keyword">val</span> persons <span class="token operator">=</span> List<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token string">&quot;jinkai&quot;</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">&quot;danhua&quot;</span><span class="token punctuation">,</span> <span class="token number">27</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    persons<span class="token punctuation">.</span>foreach <span class="token punctuation">{</span>
+      <span class="token keyword">case</span> <span class="token punctuation">(</span><span class="token string">&quot;jinkai&quot;</span><span class="token punctuation">,</span> age<span class="token punctuation">)</span> <span class="token keyword">=&gt;</span> println<span class="token punctuation">(</span>s<span class="token string">&quot;jinkai's age is $age&quot;</span><span class="token punctuation">)</span>
+      <span class="token keyword">case</span> _ <span class="token keyword">=&gt;</span> println<span class="token punctuation">(</span>s<span class="token string">&quot;danhua's age is ???&quot;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> age<span class="token punctuation">)</span> <span class="token keyword">&lt;-</span> persons<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      println<span class="token punctuation">(</span>s<span class="token string">&quot;person: name($name), age($age)&quot;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>输出：<br>
+jinkai's age is 25<br>
+danhua's age is ???<br>
+person: name(jinkai), age(25)<br>
+person: name(danhua), age(27)</p> <div class="language-scala extra-class"><pre class="language-scala"><code><span class="token keyword">object</span> Hello <span class="token punctuation">{</span>
+  <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token keyword">new</span> RichStringIterator<span class="token punctuation">(</span><span class="token string">&quot;Scala&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>foreach <span class="token punctuation">{</span> println _ <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">abstract</span> <span class="token keyword">class</span> AbsIterator <span class="token punctuation">{</span>
+  <span class="token keyword">type</span> T
+  <span class="token keyword">def</span> hasNext<span class="token operator">:</span> <span class="token builtin">Boolean</span>
+  <span class="token keyword">def</span> next<span class="token operator">:</span> T
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> StringIterator<span class="token punctuation">(</span>s<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token keyword">extends</span> AbsIterator <span class="token punctuation">{</span>
+  <span class="token keyword">type</span> T <span class="token operator">=</span> <span class="token builtin">Char</span>
+  <span class="token keyword">private</span> <span class="token keyword">var</span> current <span class="token operator">=</span> <span class="token number">0</span>
+  <span class="token keyword">def</span> hasNext<span class="token operator">:</span> <span class="token builtin">Boolean</span> <span class="token operator">=</span> current <span class="token operator">&lt;</span> s<span class="token punctuation">.</span>length
+  <span class="token keyword">def</span> next<span class="token operator">:</span> <span class="token builtin">Char</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token keyword">val</span> t <span class="token operator">=</span> current
+    current <span class="token operator">+=</span> <span class="token number">1</span>
+    s charAt t
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">trait</span> RichIterator <span class="token keyword">extends</span> AbsIterator <span class="token punctuation">{</span>
+  <span class="token keyword">def</span> foreach<span class="token punctuation">(</span>f<span class="token operator">:</span> T <span class="token keyword">=&gt;</span> <span class="token builtin">Unit</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> <span class="token keyword">while</span><span class="token punctuation">(</span>hasNext<span class="token punctuation">)</span> f<span class="token punctuation">(</span>next<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> RichStringIterator<span class="token punctuation">(</span>s<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token keyword">extends</span> StringIterator<span class="token punctuation">(</span>s<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token keyword">with</span> RichIterator
+</code></pre></div><p>输出：<br>
+S<br>
+c<br>
+a<br>
+l<br>
+a</p> <div class="language-scala extra-class"><pre class="language-scala"><code><span class="token keyword">object</span> Hello <span class="token punctuation">{</span>
+  <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token keyword">def</span> factorial<span class="token punctuation">(</span>x<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Int</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+      <span class="token keyword">def</span> fact<span class="token punctuation">(</span>x<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">,</span> accu<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Int</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span> accu <span class="token keyword">else</span> fact<span class="token punctuation">(</span>x <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> x <span class="token operator">*</span> accu<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      fact<span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    println<span class="token punctuation">(</span>factorial<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>输出：<br>
+2</p> <p>java 方言那么多，乱花渐欲迷人眼。公司一位前辈说过，重要的不是语言，是语言特性。从上面的栗子中，你看到了哪些语言特性？</p></div> <footer><!----> <hr> <!----></footer></article> <!----></div></div> <footer class="footer" data-v-3d9deeb8><div class="footer-left-wrap" data-v-3d9deeb8><ul class="contact" data-v-3d9deeb8><li class="contact-item" data-v-3d9deeb8><a href="https://github.com/iamtmoe" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github" data-v-3d9deeb8><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" data-v-3d9deeb8></path></svg>
+          
+        </a></li></ul></div> <div class="footer-right-wrap" data-v-3d9deeb8><ul class="copyright" data-v-3d9deeb8><li class="copyright-item" data-v-3d9deeb8><a href="https://policies.google.com/privacy?hl=en-US" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8>Privacy Policy</a></li><li class="copyright-item" data-v-3d9deeb8>MIT Licensed | Copyright © 一何有尔</li></ul></div></footer></div><div class="global-ui"><!----></div></div>
+    <script src="/blog/assets/js/app.c616dceb.js" defer></script><script src="/blog/assets/js/6.b5d332af.js" defer></script><script src="/blog/assets/js/3.749e8baa.js" defer></script><script src="/blog/assets/js/34.768a88f4.js" defer></script><script src="/blog/assets/js/8.050f5748.js" defer></script>
+  </body>
+</html>

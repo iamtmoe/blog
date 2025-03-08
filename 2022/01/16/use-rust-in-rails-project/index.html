@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Use Rust In Rails | 一何有尔的博客</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+    <link rel="manifest" href="/blog/manifest.json">
+    <link rel="apple-touch-icon" href="/blog/images/app_icon/app_icon48.jpeg">
+    <link rel="mask-icon" href="/blog/icons/safari-pinned-tab.svg" color="#3eaf7c">
+    <meta name="description" content="
+reference
+
+setup
+
+bundle add ffi
+mkdir -p lib/ffi
+cd lib/ffi
+cargo init --lib
+
+code
+
+lib/ffi/car ...">
+    <meta name="baidu-site-verification" content="41GlPEeYTk">
+    <meta name="keywords" content="vuepress, blog, 一何有尔">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-TileImage" content="/images/app_icon/app_icon48.jpeg">
+    <meta name="msapplication-TileColor" content="#000000">
+    
+    <link rel="preload" href="/blog/assets/css/0.styles.db20579b.css" as="style"><link rel="preload" href="/blog/assets/js/app.c616dceb.js" as="script"><link rel="preload" href="/blog/assets/js/6.b5d332af.js" as="script"><link rel="preload" href="/blog/assets/js/3.749e8baa.js" as="script"><link rel="preload" href="/blog/assets/js/22.9a77eca9.js" as="script"><link rel="preload" href="/blog/assets/js/8.050f5748.js" as="script"><link rel="prefetch" href="/blog/assets/js/10.aa1dac21.js"><link rel="prefetch" href="/blog/assets/js/11.70c977ba.js"><link rel="prefetch" href="/blog/assets/js/12.bca8c580.js"><link rel="prefetch" href="/blog/assets/js/13.b618ec97.js"><link rel="prefetch" href="/blog/assets/js/14.80ae0e92.js"><link rel="prefetch" href="/blog/assets/js/15.1e8d5c02.js"><link rel="prefetch" href="/blog/assets/js/16.9fcef108.js"><link rel="prefetch" href="/blog/assets/js/17.60290ab1.js"><link rel="prefetch" href="/blog/assets/js/18.bd9b53f4.js"><link rel="prefetch" href="/blog/assets/js/19.bf170d35.js"><link rel="prefetch" href="/blog/assets/js/20.76d2073a.js"><link rel="prefetch" href="/blog/assets/js/21.84e35001.js"><link rel="prefetch" href="/blog/assets/js/23.eee85973.js"><link rel="prefetch" href="/blog/assets/js/24.af56bcfb.js"><link rel="prefetch" href="/blog/assets/js/25.b9c14c5d.js"><link rel="prefetch" href="/blog/assets/js/26.31632e5f.js"><link rel="prefetch" href="/blog/assets/js/27.b62c171d.js"><link rel="prefetch" href="/blog/assets/js/28.c6fdb267.js"><link rel="prefetch" href="/blog/assets/js/29.c3073e06.js"><link rel="prefetch" href="/blog/assets/js/30.8fd564e6.js"><link rel="prefetch" href="/blog/assets/js/31.2d770bc9.js"><link rel="prefetch" href="/blog/assets/js/32.a63a63d2.js"><link rel="prefetch" href="/blog/assets/js/33.8bc5dfef.js"><link rel="prefetch" href="/blog/assets/js/34.768a88f4.js"><link rel="prefetch" href="/blog/assets/js/35.07c0faed.js"><link rel="prefetch" href="/blog/assets/js/36.91bb844e.js"><link rel="prefetch" href="/blog/assets/js/4.c95f156b.js"><link rel="prefetch" href="/blog/assets/js/5.1b5f68e5.js"><link rel="prefetch" href="/blog/assets/js/7.833de25a.js"><link rel="prefetch" href="/blog/assets/js/9.5e1c757e.js"><link rel="prefetch" href="/blog/assets/js/vuejs-paginate.c4247c5c.js">
+    <link rel="stylesheet" href="/blog/assets/css/0.styles.db20579b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div id="vuepress-theme-blog__global-layout"><section id="header-wrapper"><header id="header"><div class="header-wrapper"><div class="title"><a href="/blog/" class="nav-link home-link">一何有尔的博客 </a></div> <div class="header-right-wrap"><ul class="nav"><li class="nav-item"><a href="/blog/" class="nav-link">Home</a></li><li class="nav-item"><a href="/blog/tag/" class="nav-link">Tags</a></li></ul> <div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></div></header></section> <div id="mobile-header"><div class="mobile-header-bar"><div class="mobile-header-title"><a href="/blog/" class="nav-link mobile-home-link">一何有尔的博客 </a> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div> <div class="mobile-menu-wrapper"><hr class="menu-divider"> <ul class="mobile-nav"><li class="mobile-nav-item"><a href="/blog/" class="nav-link">Home</a></li><li class="mobile-nav-item"><a href="/blog/tag/" class="nav-link">Tags</a></li> <li class="mobile-nav-item"><!----></li></ul></div></div></div> <div class="content-wrapper"><div id="vuepress-theme-blog__post-layout"><article itemscope="itemscope" itemtype="https://schema.org/BlogPosting" class="vuepress-blog-theme-content"><header><h1 itemprop="name headline" class="post-title">
+        
+      </h1> <div class="post-meta"><!----> <div class="post-meta-date"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> <time pubdate itemprop="datePublished" datetime="2022-01-16T00:00:00.000Z">
+      Sun Jan 16 2022
+    </time></div> <ul itemprop="keywords" class="post-meta-tags"><li class="post-tag" data-v-42ccfcd5><a href="/blog/tag/rust" data-v-42ccfcd5><span data-v-42ccfcd5>rust</span></a></li><li class="post-tag" data-v-42ccfcd5><a href="/blog/tag/rails" data-v-42ccfcd5><span data-v-42ccfcd5>rails</span></a></li></ul></div></header> <div itemprop="articleBody" class="content__default"><h1 id="use-rust-in-rails"><a href="#use-rust-in-rails" class="header-anchor">#</a> Use Rust In Rails</h1> <h2 id="reference"><a href="#reference" class="header-anchor">#</a> reference</h2> <p><a href="https://medium.com/@naltun/rust-ruby-and-ffi-programming-6a4ab403020d" target="_blank" rel="noopener noreferrer">https://medium.com/@naltun/rust-ruby-and-ffi-programming-6a4ab403020d<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <h2 id="setup"><a href="#setup" class="header-anchor">#</a> setup</h2> <div class="language-sh extra-class"><pre class="language-sh"><code>bundle <span class="token function">add</span> ffi
+<span class="token function">mkdir</span> -p lib/ffi
+<span class="token builtin class-name">cd</span> lib/ffi
+cargo init --lib
+</code></pre></div><h2 id="code"><a href="#code" class="header-anchor">#</a> code</h2> <div class="language-toml extra-class"><pre class="language-toml"><code><span class="token comment"># lib/ffi/cargo.toml</span>
+<span class="token punctuation">[</span><span class="token table class-name">package</span><span class="token punctuation">]</span>
+<span class="token key property">name</span> <span class="token punctuation">=</span> <span class="token string">&quot;ffi&quot;</span>
+<span class="token key property">version</span> <span class="token punctuation">=</span> <span class="token string">&quot;0.1.0&quot;</span>
+<span class="token key property">authors</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span><span class="token string">&quot;yanjinkai &lt;iamtmoe@163.com&gt;&quot;</span><span class="token punctuation">]</span>
+<span class="token key property">edition</span> <span class="token punctuation">=</span> <span class="token string">&quot;2018&quot;</span>
+
+<span class="token punctuation">[</span><span class="token table class-name">lib</span><span class="token punctuation">]</span>
+<span class="token key property">name</span> <span class="token punctuation">=</span> <span class="token string">&quot;mapi&quot;</span>
+<span class="token key property">crate-type</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span><span class="token string">&quot;dylib&quot;</span><span class="token punctuation">]</span>
+
+<span class="token punctuation">[</span><span class="token table class-name">dependencies</span><span class="token punctuation">]</span>
+<span class="token key property">libc</span> <span class="token punctuation">=</span> <span class="token string">&quot;0.2.0&quot;</span>
+<span class="token key property">sysinfo</span> <span class="token punctuation">=</span> <span class="token string">&quot;0.8.0&quot;</span>
+<span class="token key property">walkdir</span> <span class="token punctuation">=</span> <span class="token string">&quot;2.2.7&quot;</span>
+</code></pre></div><hr> <div class="language-rs extra-class"><pre class="language-rs"><code><span class="token comment">// lib/ffi/src/lib.rs</span>
+<span class="token keyword">extern</span> <span class="token keyword">crate</span> <span class="token module-declaration namespace">walkdir</span><span class="token punctuation">;</span>
+
+<span class="token keyword">use</span> <span class="token namespace">walkdir<span class="token punctuation">::</span></span><span class="token class-name">WalkDir</span><span class="token punctuation">;</span>
+
+<span class="token attribute attr-name">#[no_mangle]</span>
+<span class="token keyword">pub</span> <span class="token keyword">extern</span> <span class="token keyword">fn</span> <span class="token function-definition function">get_files_count</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token keyword">usize</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> path <span class="token operator">=</span> <span class="token string">&quot;/&quot;</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> files_count <span class="token operator">=</span> <span class="token class-name">WalkDir</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">into_iter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">count</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">return</span> files_count<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>  
+</code></pre></div><hr> <div class="language-rb extra-class"><pre class="language-rb"><code><span class="token comment"># lib/ffi/mapi.rb</span>
+<span class="token keyword">module</span> <span class="token constant">MAPI</span>
+  <span class="token keyword">extend</span> <span class="token constant">FFI</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Library</span>
+  ffi_lib <span class="token string">&quot;./lib/ffi/target/release/libmapi.<span class="token interpolation"><span class="token delimiter tag">#{</span><span class="token constant">FFI</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Platform</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">LIBSUFFIX</span><span class="token delimiter tag">}</span></span>&quot;</span>
+  attach_function <span class="token symbol">:get_files_count</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token symbol">:int</span>
+<span class="token keyword">end</span>
+</code></pre></div><hr> <div class="language-rb extra-class"><pre class="language-rb"><code><span class="token comment"># app/controllers/home_controller.rb</span>
+<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">hello</span></span>
+    render plain<span class="token punctuation">:</span> <span class="token constant">MAPI</span><span class="token punctuation">.</span>get_files_count<span class="token punctuation">.</span>to_s
+<span class="token keyword">end</span>
+</code></pre></div><hr> <div class="language-Dockerfile extra-class"><pre class="language-dockerfile"><code><span class="token comment"># Dockerfile</span>
+<span class="token instruction"><span class="token keyword">FROM</span> rust:1.58-slim-buster <span class="token keyword">as</span> native_builder</span>
+
+<span class="token instruction"><span class="token keyword">RUN</span> mkdir -p /app</span>
+
+<span class="token instruction"><span class="token keyword">WORKDIR</span> /app</span>
+
+<span class="token instruction"><span class="token keyword">COPY</span> lib/ffi ./</span>
+
+<span class="token instruction"><span class="token keyword">RUN</span> cargo build --release</span>
+<span class="token comment"># ...</span>
+<span class="token instruction"><span class="token keyword">FROM</span> ruby:2.6.6-slim-buster</span>
+<span class="token instruction"><span class="token keyword">COPY</span> <span class="token options"><span class="token property">--from</span><span class="token punctuation">=</span><span class="token string">native_builder</span></span> /app/target /app/lib/ffi/target</span>
+</code></pre></div><h2 id="check"><a href="#check" class="header-anchor">#</a> check</h2> <div class="language-sh extra-class"><pre class="language-sh"><code>docker build <span class="token builtin class-name">.</span> -t rust-ffi-test
+docker run --rm -it --name<span class="token operator">=</span>rust-ffi-test -p3000:3000 rust-ffi-test
+<span class="token function">curl</span> localhost:3000/hello
+</code></pre></div></div> <footer><!----> <hr> <!----></footer></article> <div class="sticker vuepress-toc"><div class="vuepress-toc-item vuepress-toc-h2 active"><a href="#reference" title="reference">reference</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#setup" title="setup">setup</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#code" title="code">code</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#check" title="check">check</a></div></div></div></div> <footer class="footer" data-v-3d9deeb8><div class="footer-left-wrap" data-v-3d9deeb8><ul class="contact" data-v-3d9deeb8><li class="contact-item" data-v-3d9deeb8><a href="https://github.com/iamtmoe" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github" data-v-3d9deeb8><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" data-v-3d9deeb8></path></svg>
+          
+        </a></li></ul></div> <div class="footer-right-wrap" data-v-3d9deeb8><ul class="copyright" data-v-3d9deeb8><li class="copyright-item" data-v-3d9deeb8><a href="https://policies.google.com/privacy?hl=en-US" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8>Privacy Policy</a></li><li class="copyright-item" data-v-3d9deeb8>MIT Licensed | Copyright © 一何有尔</li></ul></div></footer></div><div class="global-ui"><!----></div></div>
+    <script src="/blog/assets/js/app.c616dceb.js" defer></script><script src="/blog/assets/js/6.b5d332af.js" defer></script><script src="/blog/assets/js/3.749e8baa.js" defer></script><script src="/blog/assets/js/22.9a77eca9.js" defer></script><script src="/blog/assets/js/8.050f5748.js" defer></script>
+  </body>
+</html>

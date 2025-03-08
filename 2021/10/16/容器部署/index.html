@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>容器部署 | 一何有尔的博客</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+    <link rel="manifest" href="/blog/manifest.json">
+    <link rel="apple-touch-icon" href="/blog/images/app_icon/app_icon48.jpeg">
+    <link rel="mask-icon" href="/blog/icons/safari-pinned-tab.svg" color="#3eaf7c">
+    <meta name="description" content="
+demo应用-server
+
+用fastify快速原型一个应用
+
+import Fastify from 'fastify'
+import fastifyPlugin from 'fastify-plugin'
+import fastifyMongo from 'fastify-mongodb'
+
+async function dbConnector (fastify, op ...">
+    <meta name="baidu-site-verification" content="41GlPEeYTk">
+    <meta name="keywords" content="vuepress, blog, 一何有尔">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-TileImage" content="/images/app_icon/app_icon48.jpeg">
+    <meta name="msapplication-TileColor" content="#000000">
+    
+    <link rel="preload" href="/blog/assets/css/0.styles.db20579b.css" as="style"><link rel="preload" href="/blog/assets/js/app.c616dceb.js" as="script"><link rel="preload" href="/blog/assets/js/6.b5d332af.js" as="script"><link rel="preload" href="/blog/assets/js/3.749e8baa.js" as="script"><link rel="preload" href="/blog/assets/js/15.1e8d5c02.js" as="script"><link rel="preload" href="/blog/assets/js/8.050f5748.js" as="script"><link rel="prefetch" href="/blog/assets/js/10.aa1dac21.js"><link rel="prefetch" href="/blog/assets/js/11.70c977ba.js"><link rel="prefetch" href="/blog/assets/js/12.bca8c580.js"><link rel="prefetch" href="/blog/assets/js/13.b618ec97.js"><link rel="prefetch" href="/blog/assets/js/14.80ae0e92.js"><link rel="prefetch" href="/blog/assets/js/16.9fcef108.js"><link rel="prefetch" href="/blog/assets/js/17.60290ab1.js"><link rel="prefetch" href="/blog/assets/js/18.bd9b53f4.js"><link rel="prefetch" href="/blog/assets/js/19.bf170d35.js"><link rel="prefetch" href="/blog/assets/js/20.76d2073a.js"><link rel="prefetch" href="/blog/assets/js/21.84e35001.js"><link rel="prefetch" href="/blog/assets/js/22.9a77eca9.js"><link rel="prefetch" href="/blog/assets/js/23.eee85973.js"><link rel="prefetch" href="/blog/assets/js/24.af56bcfb.js"><link rel="prefetch" href="/blog/assets/js/25.b9c14c5d.js"><link rel="prefetch" href="/blog/assets/js/26.31632e5f.js"><link rel="prefetch" href="/blog/assets/js/27.b62c171d.js"><link rel="prefetch" href="/blog/assets/js/28.c6fdb267.js"><link rel="prefetch" href="/blog/assets/js/29.c3073e06.js"><link rel="prefetch" href="/blog/assets/js/30.8fd564e6.js"><link rel="prefetch" href="/blog/assets/js/31.2d770bc9.js"><link rel="prefetch" href="/blog/assets/js/32.a63a63d2.js"><link rel="prefetch" href="/blog/assets/js/33.8bc5dfef.js"><link rel="prefetch" href="/blog/assets/js/34.768a88f4.js"><link rel="prefetch" href="/blog/assets/js/35.07c0faed.js"><link rel="prefetch" href="/blog/assets/js/36.91bb844e.js"><link rel="prefetch" href="/blog/assets/js/4.c95f156b.js"><link rel="prefetch" href="/blog/assets/js/5.1b5f68e5.js"><link rel="prefetch" href="/blog/assets/js/7.833de25a.js"><link rel="prefetch" href="/blog/assets/js/9.5e1c757e.js"><link rel="prefetch" href="/blog/assets/js/vuejs-paginate.c4247c5c.js">
+    <link rel="stylesheet" href="/blog/assets/css/0.styles.db20579b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div id="vuepress-theme-blog__global-layout"><section id="header-wrapper"><header id="header"><div class="header-wrapper"><div class="title"><a href="/blog/" class="nav-link home-link">一何有尔的博客 </a></div> <div class="header-right-wrap"><ul class="nav"><li class="nav-item"><a href="/blog/" class="nav-link">Home</a></li><li class="nav-item"><a href="/blog/tag/" class="nav-link">Tags</a></li></ul> <div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></div></header></section> <div id="mobile-header"><div class="mobile-header-bar"><div class="mobile-header-title"><a href="/blog/" class="nav-link mobile-home-link">一何有尔的博客 </a> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div> <div class="mobile-menu-wrapper"><hr class="menu-divider"> <ul class="mobile-nav"><li class="mobile-nav-item"><a href="/blog/" class="nav-link">Home</a></li><li class="mobile-nav-item"><a href="/blog/tag/" class="nav-link">Tags</a></li> <li class="mobile-nav-item"><!----></li></ul></div></div></div> <div class="content-wrapper"><div id="vuepress-theme-blog__post-layout"><article itemscope="itemscope" itemtype="https://schema.org/BlogPosting" class="vuepress-blog-theme-content"><header><h1 itemprop="name headline" class="post-title">
+        
+      </h1> <div class="post-meta"><!----> <div class="post-meta-date"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> <time pubdate itemprop="datePublished" datetime="2021-10-16T00:00:00.000Z">
+      Sat Oct 16 2021
+    </time></div> <ul itemprop="keywords" class="post-meta-tags"><li class="post-tag" data-v-42ccfcd5><a href="/blog/tag/docker" data-v-42ccfcd5><span data-v-42ccfcd5>docker</span></a></li><li class="post-tag" data-v-42ccfcd5><a href="/blog/tag/deploy" data-v-42ccfcd5><span data-v-42ccfcd5>deploy</span></a></li><li class="post-tag" data-v-42ccfcd5><a href="/blog/tag/k8s" data-v-42ccfcd5><span data-v-42ccfcd5>k8s</span></a></li></ul></div></header> <div itemprop="articleBody" class="content__default"><h1 id="容器部署"><a href="#容器部署" class="header-anchor">#</a> 容器部署</h1> <h2 id="demo应用-server"><a href="#demo应用-server" class="header-anchor">#</a> demo应用-server</h2> <p>用fastify快速原型一个应用</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> Fastify <span class="token keyword">from</span> <span class="token string">'fastify'</span>
+<span class="token keyword">import</span> fastifyPlugin <span class="token keyword">from</span> <span class="token string">'fastify-plugin'</span>
+<span class="token keyword">import</span> fastifyMongo <span class="token keyword">from</span> <span class="token string">'fastify-mongodb'</span>
+
+<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">dbConnector</span> <span class="token punctuation">(</span><span class="token parameter">fastify<span class="token punctuation">,</span> options</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  fastify<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>fastifyMongo<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    url<span class="token operator">:</span> <span class="token string">'mongodb://&lt;host&gt;:27017/test'</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">routes</span> <span class="token punctuation">(</span><span class="token parameter">fastify<span class="token punctuation">,</span> options</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> opts <span class="token operator">=</span> <span class="token punctuation">{</span>
+    schema<span class="token operator">:</span> <span class="token punctuation">{</span>
+      response<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token number">200</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          type<span class="token operator">:</span> <span class="token string">'object'</span><span class="token punctuation">,</span>
+          properties<span class="token operator">:</span> <span class="token punctuation">{</span>
+            hello<span class="token operator">:</span> <span class="token punctuation">{</span> type<span class="token operator">:</span> <span class="token string">'string'</span> <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  fastify<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> opts<span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">request<span class="token punctuation">,</span> reply</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token keyword">await</span> fastify<span class="token punctuation">.</span>mongo<span class="token punctuation">.</span>db<span class="token punctuation">.</span><span class="token function">collection</span><span class="token punctuation">(</span><span class="token string">'welcome'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">findOne</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> res<span class="token punctuation">.</span>sayHello
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> fastify <span class="token operator">=</span> <span class="token function">Fastify</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  logger<span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+fastify<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token function">fastifyPlugin</span><span class="token punctuation">(</span>dbConnector<span class="token punctuation">)</span><span class="token punctuation">)</span>
+fastify<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>routes<span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">start</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token keyword">await</span> fastify<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">,</span> <span class="token string">'0.0.0.0'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    fastify<span class="token punctuation">.</span>log<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre></div><h2 id="node镜像构建"><a href="#node镜像构建" class="header-anchor">#</a> node镜像构建</h2> <div class="language-dockerfile extra-class"><pre class="language-dockerfile"><code><span class="token comment"># syntax=docker/dockerfile:1</span>
+<span class="token instruction"><span class="token keyword">FROM</span> node:14.18.1-alpine</span>
+<span class="token comment"># FROM node:14.18.1-alpine as builder</span>
+<span class="token instruction"><span class="token keyword">RUN</span> apk add --no-cache python g++ make</span>
+<span class="token instruction"><span class="token keyword">WORKDIR</span> /app</span>
+<span class="token instruction"><span class="token keyword">COPY</span> [<span class="token string">&quot;package.json&quot;</span>, <span class="token string">&quot;yarn.lock&quot;</span>, <span class="token string">&quot;./&quot;</span>]</span>
+<span class="token instruction"><span class="token keyword">RUN</span> yarn</span>
+<span class="token instruction"><span class="token keyword">COPY</span> . .</span>
+<span class="token instruction"><span class="token keyword">CMD</span> [<span class="token string">&quot;node&quot;</span>, <span class="token string">&quot;src/index.js&quot;</span>]</span>
+<span class="token comment"># RUN yarn build</span>
+<span class="token comment"># FROM nginx:latest</span>
+<span class="token comment"># COPY --from=builder /app/build /usr/share/nginx/html/</span>
+</code></pre></div><p>除了第一行是声明语法，其他的注释是构建前端镜像用的。这里有几点值得注意，参考<a href="https://docs.docker.com/get-started/09_image_best/" target="_blank" rel="noopener noreferrer">https://docs.docker.com/get-started/09_image_best/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <ul><li>node基础镜像选择alpine版的，相当于精简版的linux系统，安装包用<code>apk add</code></li> <li>package.json单独copy，这是因为docker镜像构建是分层的，这样写能利用缓存提升构建速度</li> <li>分阶段构建，--from=builder，第二阶段引用第一阶段的产物</li></ul> <p>然后<br> <code>docker build . -t &lt;user&gt;/&lt;repository&gt;:&lt;tag&gt;</code><br> <code>docker push &lt;user&gt;/&lt;repository&gt;</code></p> <h2 id="启动mongo"><a href="#启动mongo" class="header-anchor">#</a> 启动mongo</h2> <p><a href="https://hub.docker.com/_/mongo" target="_blank" rel="noopener noreferrer">https://hub.docker.com/_/mongo<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>
+有了镜像开发我们不必再像以前安装数据库</p> <p><code>docker run --name mongo -p 27017:27017 -v /var/data/mongo:/data/db -d mongo</code></p> <p>这样就拉取官方mongo镜像启动起来了，这里-v指定数据存储目录，-p暴露端口。然后进入mongo shell</p> <div class="language-sh extra-class"><pre class="language-sh"><code>use <span class="token builtin class-name">test</span>
+db.welcome.insertOne<span class="token punctuation">(</span><span class="token punctuation">{</span>sayHello: <span class="token string">&quot;hello, world&quot;</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><h2 id="部署到k8s"><a href="#部署到k8s" class="header-anchor">#</a> 部署到k8s</h2> <p>我本地使用的是docker desktop -&gt; enable kubernetes（如果还安装了minikube, 先minikube stop)</p> <h3 id="创建资源"><a href="#创建资源" class="header-anchor">#</a> 创建资源</h3> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> server
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> server
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> server
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> server
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> iamtmoe/server
+      <span class="token key atrule">imagePullSecrets</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> regcred
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> server
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> NodePort
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> server
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> server
+    <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+    <span class="token key atrule">nodePort</span><span class="token punctuation">:</span> <span class="token number">30000</span>
+</code></pre></div><ul><li>这里声明了两种k8s资源类型，一个Deployment和一个Service</li> <li>这里的service是NodePort类型的，因为要本地访问端口</li> <li>deployment 声明了 imagePullSecrets，因为我把镜像仓库设置成了私有的，需要credential才能拉取，创建secret参考<a href="https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/" target="_blank" rel="noopener noreferrer">https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul> <div class="language-sh extra-class"><pre class="language-sh"><code>kubectl apply -f server.yml
+<span class="token function">curl</span> localhost:30000 <span class="token comment"># 输出 hello, world</span>
+</code></pre></div><h3 id="查看web面板"><a href="#查看web面板" class="header-anchor">#</a> 查看web面板</h3> <p><a href="https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/" target="_blank" rel="noopener noreferrer">https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <h3 id="更新镜像"><a href="#更新镜像" class="header-anchor">#</a> 更新镜像</h3> <p><code>kubectl set image deployment/server server=iamtmoe/server:latest</code></p> <p>可以看到滚动更新<code>kubectl get pod</code> <img src="/blog/assets/img/k8s-pod-roll-update.52b233fc.png" alt="k8s-pod-roll-update"></p></div> <footer><!----> <hr> <!----></footer></article> <div class="sticker vuepress-toc"><div class="vuepress-toc-item vuepress-toc-h2 active"><a href="#demo应用-server" title="demo应用-server">demo应用-server</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#node镜像构建" title="node镜像构建">node镜像构建</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#启动mongo" title="启动mongo">启动mongo</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#部署到k8s" title="部署到k8s">部署到k8s</a></div><div class="vuepress-toc-item vuepress-toc-h3"><a href="#创建资源" title="创建资源">创建资源</a></div><div class="vuepress-toc-item vuepress-toc-h3"><a href="#查看web面板" title="查看web面板">查看web面板</a></div><div class="vuepress-toc-item vuepress-toc-h3"><a href="#更新镜像" title="更新镜像">更新镜像</a></div></div></div></div> <footer class="footer" data-v-3d9deeb8><div class="footer-left-wrap" data-v-3d9deeb8><ul class="contact" data-v-3d9deeb8><li class="contact-item" data-v-3d9deeb8><a href="https://github.com/iamtmoe" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github" data-v-3d9deeb8><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" data-v-3d9deeb8></path></svg>
+          
+        </a></li></ul></div> <div class="footer-right-wrap" data-v-3d9deeb8><ul class="copyright" data-v-3d9deeb8><li class="copyright-item" data-v-3d9deeb8><a href="https://policies.google.com/privacy?hl=en-US" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8>Privacy Policy</a></li><li class="copyright-item" data-v-3d9deeb8>MIT Licensed | Copyright © 一何有尔</li></ul></div></footer></div><div class="global-ui"><!----></div></div>
+    <script src="/blog/assets/js/app.c616dceb.js" defer></script><script src="/blog/assets/js/6.b5d332af.js" defer></script><script src="/blog/assets/js/3.749e8baa.js" defer></script><script src="/blog/assets/js/15.1e8d5c02.js" defer></script><script src="/blog/assets/js/8.050f5748.js" defer></script>
+  </body>
+</html>

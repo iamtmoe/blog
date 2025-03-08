@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>rails启动分析 | 一何有尔的博客</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+    <link rel="manifest" href="/blog/manifest.json">
+    <link rel="apple-touch-icon" href="/blog/images/app_icon/app_icon48.jpeg">
+    <link rel="mask-icon" href="/blog/icons/safari-pinned-tab.svg" color="#3eaf7c">
+    <meta name="description" content="
+
+对于像rails这样的庞然大物，采用逐个阅读文件的方式学习显然是不现实的, 但是代码是死的，运行起来的程序是活的，所以跟随程序的运行去动态的分析能更快地抓住主要的脉络, 如果遇到难懂的代码，就打个断点，查看下环境binding，而且现在的调试工具（比如byebug）支持在隔离的环境中测试运行。
+
+读rails源码找方法是基本操作：一般先找def定义，如没有则找`attr_reader/ ...">
+    <meta name="baidu-site-verification" content="41GlPEeYTk">
+    <meta name="keywords" content="vuepress, blog, 一何有尔">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-TileImage" content="/images/app_icon/app_icon48.jpeg">
+    <meta name="msapplication-TileColor" content="#000000">
+    
+    <link rel="preload" href="/blog/assets/css/0.styles.db20579b.css" as="style"><link rel="preload" href="/blog/assets/js/app.c616dceb.js" as="script"><link rel="preload" href="/blog/assets/js/6.b5d332af.js" as="script"><link rel="preload" href="/blog/assets/js/3.749e8baa.js" as="script"><link rel="preload" href="/blog/assets/js/28.c6fdb267.js" as="script"><link rel="preload" href="/blog/assets/js/8.050f5748.js" as="script"><link rel="prefetch" href="/blog/assets/js/10.aa1dac21.js"><link rel="prefetch" href="/blog/assets/js/11.70c977ba.js"><link rel="prefetch" href="/blog/assets/js/12.bca8c580.js"><link rel="prefetch" href="/blog/assets/js/13.b618ec97.js"><link rel="prefetch" href="/blog/assets/js/14.80ae0e92.js"><link rel="prefetch" href="/blog/assets/js/15.1e8d5c02.js"><link rel="prefetch" href="/blog/assets/js/16.9fcef108.js"><link rel="prefetch" href="/blog/assets/js/17.60290ab1.js"><link rel="prefetch" href="/blog/assets/js/18.bd9b53f4.js"><link rel="prefetch" href="/blog/assets/js/19.bf170d35.js"><link rel="prefetch" href="/blog/assets/js/20.76d2073a.js"><link rel="prefetch" href="/blog/assets/js/21.84e35001.js"><link rel="prefetch" href="/blog/assets/js/22.9a77eca9.js"><link rel="prefetch" href="/blog/assets/js/23.eee85973.js"><link rel="prefetch" href="/blog/assets/js/24.af56bcfb.js"><link rel="prefetch" href="/blog/assets/js/25.b9c14c5d.js"><link rel="prefetch" href="/blog/assets/js/26.31632e5f.js"><link rel="prefetch" href="/blog/assets/js/27.b62c171d.js"><link rel="prefetch" href="/blog/assets/js/29.c3073e06.js"><link rel="prefetch" href="/blog/assets/js/30.8fd564e6.js"><link rel="prefetch" href="/blog/assets/js/31.2d770bc9.js"><link rel="prefetch" href="/blog/assets/js/32.a63a63d2.js"><link rel="prefetch" href="/blog/assets/js/33.8bc5dfef.js"><link rel="prefetch" href="/blog/assets/js/34.768a88f4.js"><link rel="prefetch" href="/blog/assets/js/35.07c0faed.js"><link rel="prefetch" href="/blog/assets/js/36.91bb844e.js"><link rel="prefetch" href="/blog/assets/js/4.c95f156b.js"><link rel="prefetch" href="/blog/assets/js/5.1b5f68e5.js"><link rel="prefetch" href="/blog/assets/js/7.833de25a.js"><link rel="prefetch" href="/blog/assets/js/9.5e1c757e.js"><link rel="prefetch" href="/blog/assets/js/vuejs-paginate.c4247c5c.js">
+    <link rel="stylesheet" href="/blog/assets/css/0.styles.db20579b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div id="vuepress-theme-blog__global-layout"><section id="header-wrapper"><header id="header"><div class="header-wrapper"><div class="title"><a href="/blog/" class="nav-link home-link">一何有尔的博客 </a></div> <div class="header-right-wrap"><ul class="nav"><li class="nav-item"><a href="/blog/" class="nav-link">Home</a></li><li class="nav-item"><a href="/blog/tag/" class="nav-link">Tags</a></li></ul> <div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></div></header></section> <div id="mobile-header"><div class="mobile-header-bar"><div class="mobile-header-title"><a href="/blog/" class="nav-link mobile-home-link">一何有尔的博客 </a> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div> <div class="mobile-menu-wrapper"><hr class="menu-divider"> <ul class="mobile-nav"><li class="mobile-nav-item"><a href="/blog/" class="nav-link">Home</a></li><li class="mobile-nav-item"><a href="/blog/tag/" class="nav-link">Tags</a></li> <li class="mobile-nav-item"><!----></li></ul></div></div></div> <div class="content-wrapper"><div id="vuepress-theme-blog__post-layout"><article itemscope="itemscope" itemtype="https://schema.org/BlogPosting" class="vuepress-blog-theme-content"><header><h1 itemprop="name headline" class="post-title">
+        
+      </h1> <div class="post-meta"><!----> <div class="post-meta-date"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> <time pubdate itemprop="datePublished" datetime="1970-01-01T00:00:00.000Z">
+      Thu Jan 01 1970
+    </time></div> <ul itemprop="keywords" class="post-meta-tags"><li class="post-tag" data-v-42ccfcd5><a href="/blog/tag/rails" data-v-42ccfcd5><span data-v-42ccfcd5>rails</span></a></li></ul></div></header> <div itemprop="articleBody" class="content__default"><h1 id="rails启动分析"><a href="#rails启动分析" class="header-anchor">#</a> rails启动分析</h1> <p>对于像rails这样的庞然大物，采用逐个阅读文件的方式学习显然是不现实的, 但是代码是死的，运行起来的程序是活的，所以跟随程序的运行去动态的分析能更快地抓住主要的脉络, 如果遇到难懂的代码，就打个断点，查看下环境binding，而且现在的调试工具（比如<code>byebug</code>）支持在隔离的环境中测试运行。</p> <p>读rails源码找方法是基本操作：一般先找<code>def</code>定义，如没有则找<code>attr_reader/attr_accessor</code>，再没有找<code>delegate</code>，按这三步依次在祖先链上查找。</p> <p>我们从命令行敲下<code>rails server</code>开始（这里假设你已经用<code>rails new &lt;app_name&gt;</code>生成了一个项目），分析rails的启动流程。</p> <p>首先奉上辛苦整理的调用栈。大体的流程为：执行可执行文件（rails）-&gt; 根据命令行参数（server）执行对应的perform函数 -&gt; 找到web server(puma) -&gt; 构建app -&gt; 启动server</p> <div class="language-ruby extra-class"><pre class="language-ruby"><code><span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/bin/rails</span>
+load <span class="token constant">Gem</span><span class="token punctuation">.</span>activate_bin_path<span class="token punctuation">(</span><span class="token string">'railties'</span><span class="token punctuation">,</span> <span class="token string">'rails'</span><span class="token punctuation">,</span> version<span class="token punctuation">)</span>
+<span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/railties-6.0.3.1/exe/rails</span>
+<span class="token keyword">require</span> <span class="token string">&quot;rails/cli&quot;</span>
+<span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/railties-6.0.3.1/lib/rails/cli.rb</span>
+<span class="token keyword">require</span> <span class="token string">&quot;rails/app_loader&quot;</span>
+<span class="token constant">Rails</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">AppLoader</span><span class="token punctuation">.</span>exec_app
+    <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/railties-6.0.3.1/lib/rails/app_loader.rb</span>
+    <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">exec_app</span></span>
+      exec <span class="token constant">RUBY</span><span class="token punctuation">,</span> exe<span class="token punctuation">,</span> <span class="token operator">*</span><span class="token constant">ARGV</span>
+    <span class="token keyword">end</span>
+
+<span class="token comment"># /Users/yanjinkai/Desktop/learn_rails/bin/rails</span>
+<span class="token constant">APP_PATH</span> <span class="token operator">=</span> <span class="token builtin">File</span><span class="token punctuation">.</span>expand_path<span class="token punctuation">(</span><span class="token string">'../config/application'</span><span class="token punctuation">,</span> __dir__<span class="token punctuation">)</span>
+require_relative <span class="token string">'../config/boot'</span>
+    <span class="token comment"># /Users/yanjinkai/Desktop/learn_rails/config/boot.rb</span>
+    <span class="token constant">ENV</span><span class="token punctuation">[</span><span class="token string">'BUNDLE_GEMFILE'</span><span class="token punctuation">]</span> <span class="token operator">||</span><span class="token operator">=</span> <span class="token builtin">File</span><span class="token punctuation">.</span>expand_path<span class="token punctuation">(</span><span class="token string">'../Gemfile'</span><span class="token punctuation">,</span> __dir__<span class="token punctuation">)</span>
+    <span class="token keyword">require</span> <span class="token string">'bundler/setup'</span> <span class="token comment"># Set up gems listed in the Gemfile.</span>
+    <span class="token keyword">require</span> <span class="token string">'bootsnap/setup'</span> <span class="token comment"># Speed up boot time by caching expensive operations.</span>
+<span class="token keyword">require</span> <span class="token string">'rails/commands'</span>
+<span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/railties-6.0.3.1/lib/rails/commands.rb</span>
+<span class="token keyword">require</span> <span class="token string">&quot;rails/command&quot;</span>
+<span class="token constant">Rails</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Command</span><span class="token punctuation">.</span>invoke command<span class="token punctuation">,</span> <span class="token constant">ARGV</span>
+  <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/railties-6.0.3.1/lib/rails/command.rb</span>
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">invoke</span></span><span class="token punctuation">(</span>full_namespace<span class="token punctuation">,</span> args <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">*</span><span class="token operator">*</span>config<span class="token punctuation">)</span>
+    command<span class="token punctuation">.</span>perform<span class="token punctuation">(</span>command_name<span class="token punctuation">,</span> args<span class="token punctuation">,</span> config<span class="token punctuation">)</span>
+      <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/railties-6.0.3.1/lib/rails/commands/server/server_command.rb</span>
+      <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">perform</span></span>
+        extract_environment_option_from_argument
+        set_application_directory<span class="token operator">!</span>
+        prepare_restart
+        <span class="token constant">Rails</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Server</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>server_options<span class="token punctuation">)</span><span class="token punctuation">.</span>tap <span class="token keyword">do</span> <span class="token operator">|</span>server<span class="token operator">|</span>
+          <span class="token comment"># Require application after server sets environment to propagate</span>
+          <span class="token comment"># the --environment option.</span>
+          <span class="token keyword">require</span> <span class="token constant">APP_PATH</span>
+          <span class="token builtin">Dir</span><span class="token punctuation">.</span>chdir<span class="token punctuation">(</span><span class="token constant">Rails</span><span class="token punctuation">.</span>application<span class="token punctuation">.</span>root<span class="token punctuation">)</span>
+
+          <span class="token keyword">if</span> server<span class="token punctuation">.</span>serveable<span class="token operator">?</span>
+              <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">serveable</span></span><span class="token operator">?</span> <span class="token comment"># :nodoc:</span>
+                server
+                    <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/rack-2.2.2/lib/rack/server.rb</span>
+                    <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">server</span></span>
+                      <span class="token variable">@_server</span> <span class="token operator">||</span><span class="token operator">=</span> <span class="token constant">Rack</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Handler</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span>options<span class="token punctuation">[</span><span class="token symbol">:server</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+                      <span class="token keyword">unless</span> <span class="token variable">@_server</span>
+                        <span class="token variable">@_server</span> <span class="token operator">=</span> <span class="token constant">Rack</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Handler</span><span class="token punctuation">.</span>default
+                            <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/rack-2.2.2/lib/rack/handler.rb</span>
+                            <span class="token keyword">def</span> <span class="token method-definition"><span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">default</span></span>
+                              <span class="token comment"># Guess.</span>
+                              <span class="token keyword">if</span> <span class="token constant">ENV</span><span class="token punctuation">.</span><span class="token keyword">include</span><span class="token operator">?</span><span class="token punctuation">(</span><span class="token string">&quot;PHP_FCGI_CHILDREN&quot;</span><span class="token punctuation">)</span>
+                                <span class="token constant">Rack</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Handler</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">FastCGI</span>
+                              <span class="token keyword">elsif</span> <span class="token constant">ENV</span><span class="token punctuation">.</span><span class="token keyword">include</span><span class="token operator">?</span><span class="token punctuation">(</span><span class="token constant">REQUEST_METHOD</span><span class="token punctuation">)</span>
+                                <span class="token constant">Rack</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Handler</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">CGI</span>
+                              <span class="token keyword">elsif</span> <span class="token constant">ENV</span><span class="token punctuation">.</span><span class="token keyword">include</span><span class="token operator">?</span><span class="token punctuation">(</span><span class="token string">&quot;RACK_HANDLER&quot;</span><span class="token punctuation">)</span>
+                                <span class="token keyword">self</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token constant">ENV</span><span class="token punctuation">[</span><span class="token string">&quot;RACK_HANDLER&quot;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+                              <span class="token keyword">else</span>
+                                pick <span class="token constant">SERVER_NAMES</span>
+                                <span class="token keyword">def</span> <span class="token method-definition"><span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">pick</span></span><span class="token punctuation">(</span>server_names<span class="token punctuation">)</span>
+                                  server_names <span class="token operator">=</span> <span class="token builtin">Array</span><span class="token punctuation">(</span>server_names<span class="token punctuation">)</span>
+                                  server_names<span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>server_name<span class="token operator">|</span>
+                                    <span class="token keyword">begin</span>
+                                      <span class="token keyword">return</span> get<span class="token punctuation">(</span>server_name<span class="token punctuation">.</span>to_s<span class="token punctuation">)</span>
+                                          <span class="token keyword">def</span> <span class="token method-definition"><span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">get</span></span><span class="token punctuation">(</span>server<span class="token punctuation">)</span>
+                                            <span class="token keyword">return</span> <span class="token keyword">unless</span> server
+                                            server <span class="token operator">=</span> server<span class="token punctuation">.</span>to_s
+
+                                            <span class="token keyword">unless</span> <span class="token variable">@handlers</span><span class="token punctuation">.</span><span class="token keyword">include</span><span class="token operator">?</span> server
+                                              load_error <span class="token operator">=</span> try_require<span class="token punctuation">(</span><span class="token string">'rack/handler'</span><span class="token punctuation">,</span> server<span class="token punctuation">)</span>
+                                                  <span class="token keyword">def</span> <span class="token method-definition"><span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">try_require</span></span><span class="token punctuation">(</span>prefix<span class="token punctuation">,</span> const_name<span class="token punctuation">)</span>
+                                                    file <span class="token operator">=</span> const_name<span class="token punctuation">.</span>gsub<span class="token punctuation">(</span><span class="token regex">/^[A-Z]+/</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">|</span>pre<span class="token operator">|</span> pre<span class="token punctuation">.</span>downcase <span class="token punctuation">}</span><span class="token punctuation">.</span>
+                                                      gsub<span class="token punctuation">(</span><span class="token regex">/[A-Z]+[^A-Z]/</span><span class="token punctuation">,</span> <span class="token string">'_\&amp;'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>downcase
+
+                                                    <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token builtin">File</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>prefix<span class="token punctuation">,</span> file<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                                                        <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/puma-4.3.5/lib/rack/handler/puma.rb</span>
+                                                        register <span class="token symbol">:puma</span><span class="token punctuation">,</span> <span class="token constant">Puma</span>
+                                                            <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/rack-2.2.2/lib/rack/handler.rb</span>
+                                                            <span class="token keyword">def</span> <span class="token method-definition"><span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">register</span></span><span class="token punctuation">(</span>server<span class="token punctuation">,</span> klass<span class="token punctuation">)</span>
+                                                              <span class="token variable">@handlers</span> <span class="token operator">||</span><span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+                                                              <span class="token variable">@handlers</span><span class="token punctuation">[</span>server<span class="token punctuation">.</span>to_s<span class="token punctuation">]</span> <span class="token operator">=</span> klass<span class="token punctuation">.</span>to_s
+                                                            <span class="token keyword">end</span>
+                                                    <span class="token keyword">nil</span>
+                                                  <span class="token keyword">rescue</span> <span class="token constant">LoadError</span> <span class="token operator">=</span><span class="token operator">&gt;</span> error
+                                                    error
+                                                  <span class="token keyword">end</span>
+                                            <span class="token keyword">end</span>
+
+                                            <span class="token keyword">if</span> klass <span class="token operator">=</span> <span class="token variable">@handlers</span><span class="token punctuation">[</span>server<span class="token punctuation">]</span>
+                                              const_get<span class="token punctuation">(</span>klass<span class="token punctuation">)</span>
+                                            <span class="token keyword">else</span>
+                                              const_get<span class="token punctuation">(</span>server<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+                                            <span class="token keyword">end</span>
+
+                                          <span class="token keyword">rescue</span> <span class="token constant">NameError</span> <span class="token operator">=</span><span class="token operator">&gt;</span> name_error
+                                            <span class="token keyword">raise</span> load_error <span class="token operator">||</span> name_error
+                                          <span class="token keyword">end</span>
+                                    <span class="token keyword">rescue</span> <span class="token constant">LoadError</span><span class="token punctuation">,</span> <span class="token constant">NameError</span>
+                                    <span class="token keyword">end</span>
+                                  <span class="token keyword">end</span>
+
+                                  <span class="token keyword">raise</span> <span class="token constant">LoadError</span><span class="token punctuation">,</span> <span class="token string">&quot;Couldn't find handler for: <span class="token interpolation"><span class="token delimiter tag">#{</span>server_names<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token string">', '</span><span class="token punctuation">)</span><span class="token delimiter tag">}</span></span>.&quot;</span>
+                                <span class="token keyword">end</span>
+
+                              <span class="token keyword">end</span>
+                            <span class="token keyword">end</span>
+                        <span class="token comment"># We already speak FastCGI</span>
+                        <span class="token variable">@ignore_options</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token symbol">:File</span><span class="token punctuation">,</span> <span class="token symbol">:Port</span><span class="token punctuation">]</span> <span class="token keyword">if</span> <span class="token variable">@_server</span><span class="token punctuation">.</span>to_s <span class="token operator">==</span> <span class="token string">'Rack::Handler::FastCGI'</span>
+                      <span class="token keyword">end</span>
+
+                      <span class="token variable">@_server</span>
+                    <span class="token keyword">end</span>
+                <span class="token boolean">true</span>
+              <span class="token keyword">rescue</span> <span class="token constant">LoadError</span><span class="token punctuation">,</span> <span class="token constant">NameError</span>
+                <span class="token boolean">false</span>
+              <span class="token keyword">end</span>
+            print_boot_information<span class="token punctuation">(</span>server<span class="token punctuation">.</span>server<span class="token punctuation">,</span> server<span class="token punctuation">.</span>served_url<span class="token punctuation">)</span>
+            after_stop_callback <span class="token operator">=</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span> say <span class="token string">&quot;Exiting&quot;</span> <span class="token keyword">unless</span> options<span class="token punctuation">[</span><span class="token symbol">:daemon</span><span class="token punctuation">]</span> <span class="token punctuation">}</span>
+            server<span class="token punctuation">.</span>start<span class="token punctuation">(</span>after_stop_callback<span class="token punctuation">)</span>
+                <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">start</span></span><span class="token punctuation">(</span>after_stop_callback <span class="token operator">=</span> <span class="token keyword">nil</span><span class="token punctuation">)</span>
+                  trap<span class="token punctuation">(</span><span class="token symbol">:INT</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> exit <span class="token punctuation">}</span>
+                  create_tmp_directories
+                  setup_dev_caching
+                  log_to_stdout <span class="token keyword">if</span> options<span class="token punctuation">[</span><span class="token symbol">:log_stdout</span><span class="token punctuation">]</span>
+                      <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">log_to_stdout</span></span>
+                        wrapped_app <span class="token comment"># touch the app so the logger is set up</span>
+                            <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/rack-2.2.2/lib/rack/server.rb</span>
+                            <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">wrapped_app</span></span>
+                              <span class="token variable">@wrapped_app</span> <span class="token operator">||</span><span class="token operator">=</span> build_app app
+                            <span class="token keyword">end</span>
+                            <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">app</span></span>
+                              <span class="token variable">@app</span> <span class="token operator">||</span><span class="token operator">=</span> options<span class="token punctuation">[</span><span class="token symbol">:builder</span><span class="token punctuation">]</span> <span class="token operator">?</span> build_app_from_string <span class="token punctuation">:</span> build_app_and_options_from_config
+                                  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">build_app_and_options_from_config</span></span>
+                                    app<span class="token punctuation">,</span> options <span class="token operator">=</span> <span class="token constant">Rack</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Builder</span><span class="token punctuation">.</span>parse_file<span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">.</span>options<span class="token punctuation">[</span><span class="token symbol">:config</span><span class="token punctuation">]</span><span class="token punctuation">,</span> opt_parser<span class="token punctuation">)</span>
+                                        <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/rack-2.2.2/lib/rack/builder.rb</span>
+                                        <span class="token keyword">def</span> <span class="token method-definition"><span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">parse_file</span></span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> opts <span class="token operator">=</span> <span class="token constant">Server</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Options</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">)</span>
+                                          <span class="token keyword">return</span> <span class="token keyword">self</span><span class="token punctuation">.</span>load_file<span class="token punctuation">(</span>config<span class="token punctuation">,</span> opts<span class="token punctuation">)</span>
+                                              <span class="token keyword">def</span> <span class="token method-definition"><span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">load_file</span></span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> opts <span class="token operator">=</span> <span class="token constant">Server</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Options</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">)</span>
+                                                app <span class="token operator">=</span> new_from_string cfgfile<span class="token punctuation">,</span> path
+                                                    <span class="token keyword">def</span> <span class="token method-definition"><span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">new_from_string</span></span><span class="token punctuation">(</span>builder_script<span class="token punctuation">,</span> file <span class="token operator">=</span> <span class="token string">&quot;(rackup)&quot;</span><span class="token punctuation">)</span>
+                                                      <span class="token comment"># We want to build a variant of TOPLEVEL_BINDING with self as a Rack::Builder instance.</span>
+                                                      <span class="token comment"># We cannot use instance_eval(String) as that would resolve constants differently.</span>
+                                                      binding<span class="token punctuation">,</span> builder <span class="token operator">=</span> <span class="token constant">TOPLEVEL_BINDING</span><span class="token punctuation">.</span>eval<span class="token punctuation">(</span><span class="token string">'Rack::Builder.new.instance_eval { [binding, self] }'</span><span class="token punctuation">)</span>
+                                                      eval builder_script<span class="token punctuation">,</span> binding<span class="token punctuation">,</span> file
+                                                          <span class="token comment"># /Users/yanjinkai/Desktop/learn_rails/config.ru</span>
+                                                          <span class="token comment"># This file is used by Rack-based servers to start the application.</span>
+                                                          require_relative <span class="token string">'config/environment'</span>
+                                                              <span class="token comment"># /Users/yanjinkai/Desktop/learn_rails/config/environment.rb</span>
+                                                              require_relative <span class="token string">'application'</span>
+                                                                  <span class="token comment"># /Users/yanjinkai/Desktop/learn_rails/config/application.rb</span>
+                                                                  require_relative <span class="token string">'boot'</span>
+                                                                  <span class="token keyword">require</span> <span class="token string">'rails/all'</span>
+                                                                      <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/railties-6.0.3.1/lib/rails/all.rb</span>
+                                                                      <span class="token keyword">require</span> <span class="token string">&quot;rails&quot;</span>
+                                                                          <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/railties-6.0.3.1/lib/rails.rb</span>
+                                                                          <span class="token keyword">require</span> <span class="token string">'rails/appliction'</span>
+
+                                                                      <span class="token string">%w(
+                                                                        active_record/railtie
+                                                                        active_storage/engine
+                                                                        action_controller/railtie
+                                                                        action_view/railtie
+                                                                        action_mailer/railtie
+                                                                        active_job/railtie
+                                                                        action_cable/engine
+                                                                        action_mailbox/engine
+                                                                        action_text/engine
+                                                                        rails/test_unit/railtie
+                                                                        sprockets/railtie
+                                                                      )</span><span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>railtie<span class="token operator">|</span>
+                                                                        <span class="token keyword">begin</span>
+                                                                          <span class="token keyword">require</span> railtie
+                                                                        <span class="token keyword">rescue</span> <span class="token constant">LoadError</span>
+                                                                        <span class="token keyword">end</span>
+                                                                      <span class="token keyword">end</span>
+                                                                  
+                                                                  <span class="token constant">Bundler</span><span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token constant">Rails</span><span class="token punctuation">.</span>groups<span class="token punctuation">)</span>
+                                                                  <span class="token keyword">module</span> <span class="token constant">LearnRails</span>
+                                                                    <span class="token keyword">class</span> <span class="token class-name">Application</span> <span class="token operator">&lt;</span> <span class="token constant">Rails</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Application</span>
+                                                                      config<span class="token punctuation">.</span>load_defaults <span class="token number">6.0</span>
+                                                                    <span class="token keyword">end</span>
+                                                                  <span class="token keyword">end</span>
+                                                              <span class="token constant">Rails</span><span class="token punctuation">.</span>application<span class="token punctuation">.</span>initialize<span class="token operator">!</span>
+                                                          run <span class="token constant">Rails</span><span class="token punctuation">.</span>application
+                                                              <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/rack-2.2.2/lib/rack/builder.rb</span>
+                                                              <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">run</span></span><span class="token punctuation">(</span>app<span class="token punctuation">)</span>
+                                                                <span class="token variable">@run</span> <span class="token operator">=</span> app
+                                                              <span class="token keyword">end</span>
+                                                      builder<span class="token punctuation">.</span>to_app
+                                                          <span class="token comment"># Return the Rack application generated by this instance.</span>
+                                                          <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">to_app</span></span>
+                                                            app <span class="token operator">=</span> <span class="token variable">@map</span> <span class="token operator">?</span> generate_map<span class="token punctuation">(</span><span class="token variable">@run</span><span class="token punctuation">,</span> <span class="token variable">@map</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token variable">@run</span>
+                                                            fail <span class="token string">&quot;missing run or map statement&quot;</span> <span class="token keyword">unless</span> app
+                                                            app<span class="token punctuation">.</span>freeze <span class="token keyword">if</span> <span class="token variable">@freeze_app</span>
+                                                            app <span class="token operator">=</span> <span class="token variable">@use</span><span class="token punctuation">.</span>reverse<span class="token punctuation">.</span>inject<span class="token punctuation">(</span>app<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">|</span>a<span class="token punctuation">,</span> e<span class="token operator">|</span> e<span class="token punctuation">[</span>a<span class="token punctuation">]</span><span class="token punctuation">.</span>tap <span class="token punctuation">{</span> <span class="token operator">|</span>x<span class="token operator">|</span> x<span class="token punctuation">.</span>freeze <span class="token keyword">if</span> <span class="token variable">@freeze_app</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span>
+                                                            <span class="token variable">@warmup</span><span class="token punctuation">.</span>call<span class="token punctuation">(</span>app<span class="token punctuation">)</span> <span class="token keyword">if</span> <span class="token variable">@warmup</span>
+                                                            app
+                                                          <span class="token keyword">end</span>
+                                                    <span class="token keyword">end</span>
+                                              <span class="token keyword">end</span>
+                                        <span class="token keyword">end</span>
+                                  <span class="token keyword">end</span>
+                            <span class="token keyword">end</span>
+                            <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">build_app</span></span><span class="token punctuation">(</span>app<span class="token punctuation">)</span>
+                              middleware<span class="token punctuation">[</span>options<span class="token punctuation">[</span><span class="token symbol">:environment</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">.</span>reverse_each <span class="token keyword">do</span> <span class="token operator">|</span>middleware<span class="token operator">|</span>
+                                middleware <span class="token operator">=</span> middleware<span class="token punctuation">.</span>call<span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token keyword">if</span> middleware<span class="token punctuation">.</span>respond_to<span class="token operator">?</span><span class="token punctuation">(</span><span class="token symbol">:call</span><span class="token punctuation">)</span>
+                                <span class="token keyword">next</span> <span class="token keyword">unless</span> middleware
+                                klass<span class="token punctuation">,</span> <span class="token operator">*</span>args <span class="token operator">=</span> middleware
+                                app <span class="token operator">=</span> klass<span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>app<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">)</span>
+                              <span class="token keyword">end</span>
+                              app
+                            <span class="token keyword">end</span>
+                        console <span class="token operator">=</span> <span class="token constant">ActiveSupport</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Logger</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span><span class="token constant">STDOUT</span><span class="token punctuation">)</span>
+                        console<span class="token punctuation">.</span>formatter <span class="token operator">=</span> <span class="token constant">Rails</span><span class="token punctuation">.</span>logger<span class="token punctuation">.</span>formatter
+                        console<span class="token punctuation">.</span>level <span class="token operator">=</span> <span class="token constant">Rails</span><span class="token punctuation">.</span>logger<span class="token punctuation">.</span>level
+
+                        <span class="token keyword">unless</span> <span class="token constant">ActiveSupport</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Logger</span><span class="token punctuation">.</span>logger_outputs_to<span class="token operator">?</span><span class="token punctuation">(</span><span class="token constant">Rails</span><span class="token punctuation">.</span>logger<span class="token punctuation">,</span> <span class="token constant">STDOUT</span><span class="token punctuation">)</span>
+                          <span class="token constant">Rails</span><span class="token punctuation">.</span>logger<span class="token punctuation">.</span><span class="token keyword">extend</span><span class="token punctuation">(</span><span class="token constant">ActiveSupport</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Logger</span><span class="token punctuation">.</span>broadcast<span class="token punctuation">(</span>console<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                        <span class="token keyword">end</span>
+                      <span class="token keyword">end</span>
+
+                  <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                      <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/rack-2.2.2/lib/rack/server.rb</span>
+                      <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">start</span></span>
+                        server<span class="token punctuation">.</span>run<span class="token punctuation">(</span>wrapped_app<span class="token punctuation">,</span> <span class="token operator">*</span><span class="token operator">*</span>options<span class="token punctuation">,</span> <span class="token operator">&amp;</span>block<span class="token punctuation">)</span>
+                            <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">server</span></span>
+                              <span class="token variable">@_server</span> <span class="token operator">||</span><span class="token operator">=</span> <span class="token constant">Rack</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Handler</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span>options<span class="token punctuation">[</span><span class="token symbol">:server</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+                            <span class="token keyword">end</span>
+                            <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">wrapped_app</span></span>
+                              <span class="token variable">@wrapped_app</span> <span class="token operator">||</span><span class="token operator">=</span> build_app app
+                            <span class="token keyword">end</span>
+                            <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/puma-4.3.5/lib/rack/handler/puma.rb</span>
+                            <span class="token keyword">def</span> <span class="token method-definition"><span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">run</span></span><span class="token punctuation">(</span>app<span class="token punctuation">,</span> options <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+                              conf   <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>config<span class="token punctuation">(</span>app<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+                              events <span class="token operator">=</span> options<span class="token punctuation">.</span>delete<span class="token punctuation">(</span><span class="token symbol">:Silent</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Puma</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Events</span><span class="token punctuation">.</span>strings <span class="token punctuation">:</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Puma</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Events</span><span class="token punctuation">.</span>stdio
+                              launcher <span class="token operator">=</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Puma</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Launcher</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>conf<span class="token punctuation">,</span> <span class="token symbol">:events</span> <span class="token operator">=</span><span class="token operator">&gt;</span> events<span class="token punctuation">)</span>
+                              <span class="token keyword">yield</span> launcher <span class="token keyword">if</span> block_given<span class="token operator">?</span>
+                              <span class="token keyword">begin</span>
+                                launcher<span class="token punctuation">.</span>run
+                                    <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/puma-4.3.5/lib/puma/launcher.rb</span>
+                                    <span class="token comment"># Run the server. This blocks until the server is stopped</span>
+                                    <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">run</span></span>
+                                      setup_signals
+                                      set_process_title
+                                      <span class="token variable">@runner</span><span class="token punctuation">.</span>run
+                                          <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">initialize</span></span>
+                                            <span class="token keyword">if</span> clustered<span class="token operator">?</span>
+                                              <span class="token variable">@options</span><span class="token punctuation">[</span><span class="token symbol">:logger</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">@events</span>
+                                      
+                                              <span class="token variable">@runner</span> <span class="token operator">=</span> <span class="token constant">Cluster</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">,</span> <span class="token variable">@events</span><span class="token punctuation">)</span>
+                                            <span class="token keyword">else</span>
+                                              <span class="token variable">@runner</span> <span class="token operator">=</span> <span class="token constant">Single</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">,</span> <span class="token variable">@events</span><span class="token punctuation">)</span>
+                                            <span class="token keyword">end</span>
+                                          <span class="token keyword">end</span>
+                                          <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/puma-4.3.5/lib/puma/single.rb</span>
+                                          <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">run</span></span>
+                                            <span class="token variable">@server</span> <span class="token operator">=</span> server <span class="token operator">=</span> start_server
+                                                <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">start_server</span></span>
+                                                  min_t <span class="token operator">=</span> <span class="token variable">@options</span><span class="token punctuation">[</span><span class="token symbol">:min_threads</span><span class="token punctuation">]</span>
+                                                  max_t <span class="token operator">=</span> <span class="token variable">@options</span><span class="token punctuation">[</span><span class="token symbol">:max_threads</span><span class="token punctuation">]</span>
+                                            
+                                                  server <span class="token operator">=</span> <span class="token constant">Puma</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Server</span><span class="token punctuation">.</span><span class="token keyword">new</span> app<span class="token punctuation">,</span> <span class="token variable">@launcher</span><span class="token punctuation">.</span>events<span class="token punctuation">,</span> <span class="token variable">@options</span>
+                                                  server<span class="token punctuation">.</span>min_threads <span class="token operator">=</span> min_t
+                                                  server<span class="token punctuation">.</span>max_threads <span class="token operator">=</span> max_t
+                                                  server<span class="token punctuation">.</span>inherit_binder <span class="token variable">@launcher</span><span class="token punctuation">.</span>binder
+                                                  server
+                                                <span class="token keyword">end</span>
+                                            server<span class="token punctuation">.</span>run<span class="token punctuation">.</span>join
+                                                <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/puma-4.3.5/lib/puma/server.rb</span>
+                                                <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">run</span></span><span class="token punctuation">(</span>background<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+                                                  <span class="token keyword">if</span> background
+                                                    <span class="token variable">@thread</span> <span class="token operator">=</span> <span class="token builtin">Thread</span><span class="token punctuation">.</span><span class="token keyword">new</span> <span class="token keyword">do</span>
+                                                      <span class="token constant">Puma</span><span class="token punctuation">.</span>set_thread_name <span class="token string">&quot;server&quot;</span>
+                                                      handle_servers
+                                                          <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">handle_servers</span></span>
+                                                            <span class="token keyword">while</span> <span class="token variable">@status</span> <span class="token operator">==</span> <span class="token symbol">:run</span>
+                                                              <span class="token keyword">begin</span>
+                                                                ios <span class="token operator">=</span> <span class="token builtin">IO</span><span class="token punctuation">.</span>select sockets
+                                                                ios<span class="token punctuation">.</span>first<span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>sock<span class="token operator">|</span>
+                                                                  <span class="token keyword">if</span> sock <span class="token operator">==</span> check
+                                                                    <span class="token keyword">break</span> <span class="token keyword">if</span> handle_check
+                                                                  <span class="token keyword">else</span>
+                                                                    <span class="token keyword">begin</span>
+                                                                      <span class="token keyword">if</span> io <span class="token operator">=</span> sock<span class="token punctuation">.</span>accept_nonblock
+                                                                        client <span class="token operator">=</span> <span class="token constant">Client</span><span class="token punctuation">.</span><span class="token keyword">new</span> io<span class="token punctuation">,</span> <span class="token variable">@binder</span><span class="token punctuation">.</span>env<span class="token punctuation">(</span>sock<span class="token punctuation">)</span>
+                                                                        <span class="token keyword">if</span> remote_addr_value
+                                                                          client<span class="token punctuation">.</span>peerip <span class="token operator">=</span> remote_addr_value
+                                                                        <span class="token keyword">elsif</span> remote_addr_header
+                                                                          client<span class="token punctuation">.</span>remote_addr_header <span class="token operator">=</span> remote_addr_header
+                                                                        <span class="token keyword">end</span>
+                                                    
+                                                                        pool <span class="token operator">&lt;</span><span class="token operator">&lt;</span> client
+                                                                        busy_threads <span class="token operator">=</span> pool<span class="token punctuation">.</span>wait_until_not_full
+                                                                        <span class="token keyword">if</span> busy_threads <span class="token operator">==</span> <span class="token number">0</span>
+                                                                          <span class="token variable">@options</span><span class="token punctuation">[</span><span class="token symbol">:out_of_band</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">each</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token symbol">:call</span><span class="token punctuation">)</span> <span class="token keyword">if</span> <span class="token variable">@options</span><span class="token punctuation">[</span><span class="token symbol">:out_of_band</span><span class="token punctuation">]</span>
+                                                                        <span class="token keyword">end</span>
+                                                                      <span class="token keyword">end</span>
+                                                                    <span class="token keyword">rescue</span> <span class="token constant">SystemCallError</span>
+                                                                      <span class="token comment"># nothing</span>
+                                                                    <span class="token keyword">rescue</span> <span class="token constant">Errno</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">ECONNABORTED</span>
+                                                                      <span class="token comment"># client closed the socket even before accept</span>
+                                                                      <span class="token keyword">begin</span>
+                                                                        io<span class="token punctuation">.</span>close
+                                                                      <span class="token keyword">rescue</span>
+                                                                        <span class="token builtin">Thread</span><span class="token punctuation">.</span>current<span class="token punctuation">.</span>purge_interrupt_queue <span class="token keyword">if</span> <span class="token builtin">Thread</span><span class="token punctuation">.</span>current<span class="token punctuation">.</span>respond_to<span class="token operator">?</span> <span class="token symbol">:purge_interrupt_queue</span>
+                                                                      <span class="token keyword">end</span>
+                                                                    <span class="token keyword">end</span>
+                                                                  <span class="token keyword">end</span>
+                                                                <span class="token keyword">end</span>
+                                                              <span class="token keyword">rescue</span> <span class="token builtin">Object</span> <span class="token operator">=</span><span class="token operator">&gt;</span> e
+                                                                <span class="token variable">@events</span><span class="token punctuation">.</span>unknown_error <span class="token keyword">self</span><span class="token punctuation">,</span> e<span class="token punctuation">,</span> <span class="token string">&quot;Listen loop&quot;</span>
+                                                              <span class="token keyword">end</span>
+                                                            <span class="token keyword">end</span>
+                                                            <span class="token variable">@events</span><span class="token punctuation">.</span>fire <span class="token symbol">:state</span><span class="token punctuation">,</span> <span class="token variable">@status</span>
+                                                            graceful_shutdown <span class="token keyword">if</span> <span class="token variable">@status</span> <span class="token operator">==</span> <span class="token symbol">:stop</span> <span class="token operator">||</span> <span class="token variable">@status</span> <span class="token operator">==</span> <span class="token symbol">:restart</span>
+                                                            <span class="token keyword">if</span> queue_requests
+                                                              <span class="token variable">@reactor</span><span class="token punctuation">.</span>clear<span class="token operator">!</span>
+                                                              <span class="token variable">@reactor</span><span class="token punctuation">.</span>shutdown
+                                                            <span class="token keyword">end</span>
+                                                          <span class="token keyword">end</span>
+                                                    <span class="token keyword">end</span>
+                                                    <span class="token keyword">return</span> <span class="token variable">@thread</span>
+                                                  <span class="token keyword">else</span>
+                                                    handle_servers
+                                                  <span class="token keyword">end</span>
+                                                <span class="token keyword">end</span>
+                                          <span class="token keyword">end</span>
+                                      <span class="token keyword">case</span> <span class="token variable">@status</span>
+                                      <span class="token keyword">when</span> <span class="token symbol">:halt</span>
+                                        log <span class="token string">&quot;* Stopping immediately!&quot;</span>
+                                      <span class="token keyword">when</span> <span class="token symbol">:run</span><span class="token punctuation">,</span> <span class="token symbol">:stop</span>
+                                        graceful_stop
+                                      <span class="token keyword">when</span> <span class="token symbol">:restart</span>
+                                        log <span class="token string">&quot;* Restarting...&quot;</span>
+                                        <span class="token constant">ENV</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span>previous_env<span class="token punctuation">)</span>
+                                        <span class="token variable">@runner</span><span class="token punctuation">.</span>before_restart
+                                        restart<span class="token operator">!</span>
+                                      <span class="token keyword">when</span> <span class="token symbol">:exit</span>
+                                        <span class="token comment"># nothing</span>
+                                      <span class="token keyword">end</span>
+                                      <span class="token variable">@binder</span><span class="token punctuation">.</span>close_unix_paths
+                                    <span class="token keyword">end</span>
+                              <span class="token keyword">rescue</span> <span class="token constant">Interrupt</span>
+                                puts <span class="token string">&quot;* Gracefully stopping, waiting for requests to finish&quot;</span>
+                                launcher<span class="token punctuation">.</span>stop
+                                puts <span class="token string">&quot;* Goodbye!&quot;</span>
+                              <span class="token keyword">end</span>
+                            <span class="token keyword">end</span>
+                      <span class="token keyword">end</span>
+                <span class="token keyword">ensure</span>
+                  after_stop_callback<span class="token punctuation">.</span>call <span class="token keyword">if</span> after_stop_callback
+                <span class="token keyword">end</span>
+          <span class="token keyword">else</span>
+            say rack_server_suggestion<span class="token punctuation">(</span>using<span class="token punctuation">)</span>
+          <span class="token keyword">end</span>
+        <span class="token keyword">end</span>
+      <span class="token keyword">end</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+</code></pre></div><p>如果你能跟随调用栈走到Rails.application.initialize!这一步，那么恭喜你不畏长途跋涉，终于到达了rails启动主体内容的入口。</p> <div class="language-ruby extra-class"><pre class="language-ruby"><code><span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/railties-6.0.3.1/lib/rails/application.rb</span>
+<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">initialize</span></span><span class="token operator">!</span><span class="token punctuation">(</span>group <span class="token operator">=</span> <span class="token symbol">:default</span><span class="token punctuation">)</span> <span class="token comment">#:nodoc:</span>
+  <span class="token keyword">raise</span> <span class="token string">&quot;Application has been already initialized.&quot;</span> <span class="token keyword">if</span> <span class="token variable">@initialized</span>
+  run_initializers<span class="token punctuation">(</span>group<span class="token punctuation">,</span> <span class="token keyword">self</span><span class="token punctuation">)</span>
+      <span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/railties-6.0.3.1/lib/rails/initializable.rb</span>
+      <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">run_initializers</span></span><span class="token punctuation">(</span>group <span class="token operator">=</span> <span class="token symbol">:default</span><span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token keyword">if</span> instance_variable_defined<span class="token operator">?</span><span class="token punctuation">(</span><span class="token punctuation">:</span><span class="token variable">@ran</span><span class="token punctuation">)</span>
+        initializers<span class="token punctuation">.</span>tsort_each <span class="token keyword">do</span> <span class="token operator">|</span>initializer<span class="token operator">|</span>
+          initializer<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">)</span> <span class="token keyword">if</span> initializer<span class="token punctuation">.</span>belongs_to<span class="token operator">?</span><span class="token punctuation">(</span>group<span class="token punctuation">)</span>
+        <span class="token keyword">end</span>
+        <span class="token variable">@ran</span> <span class="token operator">=</span> <span class="token boolean">true</span>
+      <span class="token keyword">end</span>
+  <span class="token variable">@initialized</span> <span class="token operator">=</span> <span class="token boolean">true</span>
+  <span class="token keyword">self</span>
+<span class="token keyword">end</span>
+
+<span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/railties-6.0.3.1/lib/rails/application.rb</span>
+<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">initializers</span></span>
+  <span class="token constant">Bootstrap</span><span class="token punctuation">.</span>initializers_for<span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  railties_initializers<span class="token punctuation">(</span><span class="token keyword">super</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  <span class="token constant">Finisher</span><span class="token punctuation">.</span>initializers_for<span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/railties-6.0.3.1/lib/rails/initializable.rb</span>
+<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">run</span></span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">)</span>
+  <span class="token variable">@context</span><span class="token punctuation">.</span>instance_exec<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">&amp;</span>block<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/railties-6.0.3.1/lib/rails/initializable.rb</span>
+<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">initializer</span></span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> opts <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>blk<span class="token punctuation">)</span>
+  <span class="token keyword">raise</span> <span class="token constant">ArgumentError</span><span class="token punctuation">,</span> <span class="token string">&quot;A block must be passed when defining an initializer&quot;</span> <span class="token keyword">unless</span> blk
+  opts<span class="token punctuation">[</span><span class="token symbol">:after</span><span class="token punctuation">]</span> <span class="token operator">||</span><span class="token operator">=</span> initializers<span class="token punctuation">.</span>last<span class="token punctuation">.</span>name <span class="token keyword">unless</span> initializers<span class="token punctuation">.</span>empty<span class="token operator">?</span> <span class="token operator">||</span> initializers<span class="token punctuation">.</span>find <span class="token punctuation">{</span> <span class="token operator">|</span>i<span class="token operator">|</span> i<span class="token punctuation">.</span>name <span class="token operator">==</span> opts<span class="token punctuation">[</span><span class="token symbol">:before</span><span class="token punctuation">]</span> <span class="token punctuation">}</span>
+  initializers <span class="token operator">&lt;</span><span class="token operator">&lt;</span> <span class="token constant">Initializer</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> <span class="token keyword">nil</span><span class="token punctuation">,</span> opts<span class="token punctuation">,</span> <span class="token operator">&amp;</span>blk<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+</code></pre></div><p>initializers方法收集了所有的启动对象，依次调用每个对象的run方法完成启动，通过调用initializer注册启动对象。主要有三类启动对象</p> <ol><li><p>Booststrap（以下列出注册的各启动对象的name）</p> <ul><li>load_environment_hook</li> <li>load_active_support</li> <li>set_eager_load</li> <li>initialize_logger</li> <li>initialize_cache</li> <li>initialize_dependency_machanism</li> <li>bootstrap_hook</li> <li>set_secrets_root</li></ul></li> <li><p>railties</p> <div class="language-ruby extra-class"><pre class="language-ruby"><code><span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/railties-6.0.3.1/lib/rails/engine/railties.rb</span>
+<span class="token keyword">module</span> <span class="token constant">Rails</span>
+  <span class="token keyword">class</span> <span class="token class-name">Engine</span> <span class="token operator">&lt;</span> <span class="token constant">Railtie</span>
+    <span class="token keyword">class</span> <span class="token class-name">Railties</span>
+
+      <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">initialize</span></span>
+        <span class="token variable">@_all</span> <span class="token operator">||</span><span class="token operator">=</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Rails</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Railtie</span><span class="token punctuation">.</span>subclasses<span class="token punctuation">.</span>map<span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token symbol">:instance</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+          <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Rails</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Engine</span><span class="token punctuation">.</span>subclasses<span class="token punctuation">.</span>map<span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token symbol">:instance</span><span class="token punctuation">)</span>
+      <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+</code></pre></div><p>可以看到这一类启动对象包括了所有继承Railtie或继承Engine的类的实例</p></li> <li><p>Finisher</p> <ul><li>add_generator_templates</li> <li>ensure_autoload_once_paths_as_subset</li> <li>warn_if_autoloaded</li> <li>let_zeitwerk_take_overa</li> <li>add_builtin_route</li> <li>setup_default_session_store</li> <li>build_middleware_stack</li> <li>define_main_app_helper</li> <li>add_to_prepare_blocks</li> <li>run_prepare_callbacks</li> <li>eager_load!</li> <li>finisher_hook</li> <li>configure_executor_for_concurrency</li> <li>set_routes_reloader_hook</li> <li>set_clear_dependencies_hook</li> <li>disable_dependency_loading</li></ul> <p>这里重点讲一下中间件的加载。</p> <div class="language-ruby extra-class"><pre class="language-ruby"><code><span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/rack-2.2.2/lib/rack/builder.rb</span>
+<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">to_app</span></span>
+  app <span class="token operator">=</span> <span class="token variable">@map</span> <span class="token operator">?</span> generate_map<span class="token punctuation">(</span><span class="token variable">@run</span><span class="token punctuation">,</span> <span class="token variable">@map</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token variable">@run</span>
+  fail <span class="token string">&quot;missing run or map statement&quot;</span> <span class="token keyword">unless</span> app
+  app<span class="token punctuation">.</span>freeze <span class="token keyword">if</span> <span class="token variable">@freeze_app</span>
+  app <span class="token operator">=</span> <span class="token variable">@use</span><span class="token punctuation">.</span>reverse<span class="token punctuation">.</span>inject<span class="token punctuation">(</span>app<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">|</span>a<span class="token punctuation">,</span> e<span class="token operator">|</span> e<span class="token punctuation">[</span>a<span class="token punctuation">]</span><span class="token punctuation">.</span>tap <span class="token punctuation">{</span> <span class="token operator">|</span>x<span class="token operator">|</span> x<span class="token punctuation">.</span>freeze <span class="token keyword">if</span> <span class="token variable">@freeze_app</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span>
+  <span class="token variable">@warmup</span><span class="token punctuation">.</span>call<span class="token punctuation">(</span>app<span class="token punctuation">)</span> <span class="token keyword">if</span> <span class="token variable">@warmup</span>
+  app
+<span class="token keyword">end</span>
+
+<span class="token comment">#/Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/rack-2.2.2/lib/rack/server.rb</span>
+<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">build_app</span></span><span class="token punctuation">(</span>app<span class="token punctuation">)</span>
+  middleware<span class="token punctuation">[</span>options<span class="token punctuation">[</span><span class="token symbol">:environment</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">.</span>reverse_each <span class="token keyword">do</span> <span class="token operator">|</span>middleware<span class="token operator">|</span>
+    middleware <span class="token operator">=</span> middleware<span class="token punctuation">.</span>call<span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token keyword">if</span> middleware<span class="token punctuation">.</span>respond_to<span class="token operator">?</span><span class="token punctuation">(</span><span class="token symbol">:call</span><span class="token punctuation">)</span>
+    <span class="token keyword">next</span> <span class="token keyword">unless</span> middleware
+    klass<span class="token punctuation">,</span> <span class="token operator">*</span>args <span class="token operator">=</span> middleware
+    app <span class="token operator">=</span> klass<span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>app<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">)</span>
+  <span class="token keyword">end</span>
+  app
+<span class="token keyword">end</span>
+</code></pre></div><p>首先构建app的时候调用了 to_app 方法，Rack::Builder#use是rack应用注册中间件的方法，但是rails没有用，打断点查看@use为[]。</p> <p>wrap_app调用了build_app, 注册了rack在不同环境下默认的中间件</p> <p>rails 加载中间件的方式是通过启动对象build_middleware_stack，Rails::Application里面有这么一句 alias :build_middleware_stack :app</p> <div class="language-ruby extra-class"><pre class="language-ruby"><code><span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/railties-6.0.3.1/lib/rails/engine.rb</span>
+<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">app</span></span>
+  <span class="token variable">@app</span> <span class="token operator">||</span> <span class="token variable">@app_build_lock</span><span class="token punctuation">.</span>synchronize <span class="token punctuation">{</span>
+    <span class="token variable">@app</span> <span class="token operator">||</span><span class="token operator">=</span> <span class="token keyword">begin</span>
+      stack <span class="token operator">=</span> default_middleware_stack
+      config<span class="token punctuation">.</span>middleware <span class="token operator">=</span> build_middleware<span class="token punctuation">.</span>merge_into<span class="token punctuation">(</span>stack<span class="token punctuation">)</span>
+      config<span class="token punctuation">.</span>middleware<span class="token punctuation">.</span>build<span class="token punctuation">(</span>endpoint<span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+  <span class="token punctuation">}</span>
+<span class="token keyword">end</span>
+</code></pre></div><p>在执行build_middleware_stack之前，config.middleware是Rails::Configuration::MiddlewareStackProxy, merge_into后变成了ActionDispatch::MiddlewareStack</p></li></ol> <p>源代码里扒出来的启动过程注释</p> <div class="language-ruby extra-class"><pre class="language-ruby"><code><span class="token comment"># /Users/yanjinkai/.rvm/gems/ruby-2.7.0/gems/railties-6.0.3.1/lib/rails/application.rb</span>
+<span class="token comment"># == Booting process</span>
+  <span class="token comment">#</span>
+  <span class="token comment"># The application is also responsible for setting up and executing the booting</span>
+  <span class="token comment"># process. From the moment you require &quot;config/application.rb&quot; in your app,</span>
+  <span class="token comment"># the booting process goes like this:</span>
+  <span class="token comment">#</span>
+  <span class="token comment">#   1)  require &quot;config/boot.rb&quot; to setup load paths</span>
+  <span class="token comment">#   2)  require railties and engines</span>
+  <span class="token comment">#   3)  Define Rails.application as &quot;class MyApp::Application &lt; Rails::Application&quot;</span>
+  <span class="token comment">#   4)  Run config.before_configuration callbacks</span>
+  <span class="token comment">#   5)  Load config/environments/ENV.rb</span>
+  <span class="token comment">#   6)  Run config.before_initialize callbacks</span>
+  <span class="token comment">#   7)  Run Railtie#initializer defined by railties, engines and application.</span>
+  <span class="token comment">#       One by one, each engine sets up its load paths, routes and runs its config/initializers/* files.</span>
+  <span class="token comment">#   8)  Custom Railtie#initializers added by railties, engines and applications are executed</span>
+  <span class="token comment">#   9)  Build the middleware stack and run to_prepare callbacks</span>
+  <span class="token comment">#   10) Run config.before_eager_load and eager_load! if eager_load is true</span>
+  <span class="token comment">#   11) Run config.after_initialize callbacks</span>
+</code></pre></div><p>参考: <a href="https://guides.rubyonrails.org/initialization.html" target="_blank" rel="noopener noreferrer">https://guides.rubyonrails.org/initialization.html<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></div> <footer><!----> <hr> <!----></footer></article> <!----></div></div> <footer class="footer" data-v-3d9deeb8><div class="footer-left-wrap" data-v-3d9deeb8><ul class="contact" data-v-3d9deeb8><li class="contact-item" data-v-3d9deeb8><a href="https://github.com/iamtmoe" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github" data-v-3d9deeb8><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" data-v-3d9deeb8></path></svg>
+          
+        </a></li></ul></div> <div class="footer-right-wrap" data-v-3d9deeb8><ul class="copyright" data-v-3d9deeb8><li class="copyright-item" data-v-3d9deeb8><a href="https://policies.google.com/privacy?hl=en-US" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8>Privacy Policy</a></li><li class="copyright-item" data-v-3d9deeb8>MIT Licensed | Copyright © 一何有尔</li></ul></div></footer></div><div class="global-ui"><!----></div></div>
+    <script src="/blog/assets/js/app.c616dceb.js" defer></script><script src="/blog/assets/js/6.b5d332af.js" defer></script><script src="/blog/assets/js/3.749e8baa.js" defer></script><script src="/blog/assets/js/28.c6fdb267.js" defer></script><script src="/blog/assets/js/8.050f5748.js" defer></script>
+  </body>
+</html>
